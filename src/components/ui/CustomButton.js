@@ -5,10 +5,7 @@ function CustomButton(props) {
     <Button
       type={props.type}
       onClick={props.onClick}
-<<<<<<< HEAD
-=======
       isDisabled={props.disabled}
->>>>>>> Atefeh
       bgColor="primary"
       color="white"
       rounded="16px"
