@@ -5,6 +5,7 @@ function CustomButton(props) {
     <Button
       type={props.type}
       onClick={props.onClick}
+      isDisabled={props.disabled}
       bgColor="primary"
       color="white"
       rounded="16px"
