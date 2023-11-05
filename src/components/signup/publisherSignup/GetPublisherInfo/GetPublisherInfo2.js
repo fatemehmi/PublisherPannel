@@ -1,15 +1,13 @@
 import CustomCardContainer from "@/components/ui/login-submit/CustomCard/CustomCardContainer";
 import CustomCardHeader from "@/components/ui/login-submit/CustomCard/CustomCardHeader";
 import CustomCardParagraph from "@/components/ui/login-submit/CustomCard/CustomCardParagraph";
-import PublisherSignupForm from "./PublisherSignupForm";
-import { useState } from "react";
-import PublisherDocuments from "./PublisherDocuments";
+import GetPublisherInfoForm2 from "@/components/signup/publisherSignup/GetPublisherInfo/GetPublisherInfoForm2";
 
-function PublisherSignup() {
-  const [step, setStep] = useState(1);
+
+function GetPublisherInfo2(props) {
+
   return (
-    <>
-      {step === 1 && (
+
         <CustomCardContainer roundedTop="20px">
           <CustomCardHeader>
             <p>مشخصات انتشارات</p>
@@ -18,12 +16,15 @@ function PublisherSignup() {
             اطلاعات زیر را می‌توانید پس از ساخت حساب، در پنل کاربری{" "}
             <span className="text-primary">ویرایش</span> کنید.
           </CustomCardParagraph>
-          <PublisherSignupForm setStep={setStep} />
+          <GetPublisherInfoForm2
+            setCommericalName={props.setCommericalName}
+            setPhoneNumber={props.setPhoneNumber}
+            setCardNumber={props.setCardNumber}
+            setAddress={props.setAddress}
+            setStep={props.setStep}
+          />
         </CustomCardContainer>
-      )}
-      {step===2&&<PublisherDocuments/>}
-    </>
   );
 }
 
-export default PublisherSignup;
+export default GetPublisherInfo2
