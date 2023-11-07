@@ -24,7 +24,7 @@ function GetEmailForm(props) {
       onSubmit={(values, { setSubmitting }) => {
         console.log(isLoading)
           mutate({
-            Email:values.email 
+            email:values.email 
           })
           setSubmitting(false);
       }}

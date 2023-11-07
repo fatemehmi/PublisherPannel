@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://Localhost:8000",
+  baseURL: "http://Localhost:8000",
 });
 
 class APIClient {

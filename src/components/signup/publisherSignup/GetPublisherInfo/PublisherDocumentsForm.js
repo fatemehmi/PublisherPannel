@@ -10,8 +10,8 @@ import useSendPublisherSignupInfo from "@/react-query/hooks/useSendPublisherSign
 function PublisherDocumentsForm(props) {
   const [idCardImg, setIdCardImg] = useState("");
   const [logoImg, setLogoImg] = useState("");
-  
-  const{mutate,isLoading,error}=useSendPublisherSignupInfo()
+
+  const { mutate, isLoading, error } = useSendPublisherSignupInfo();
 
   const convert2base64 = (file, setFunc) => {
     const reader = new FileReader();
@@ -43,19 +43,19 @@ function PublisherDocumentsForm(props) {
         idCardImage: Yup.mixed().required("وارد کردن عکس کارت ملی الزامی است."),
       })}
       onSubmit={(values, { setSubmitting }) => {
-          mutate({
-            Username:props.username,
-            Email:props.email,
-            Password:props.password,
-            Password2:props.passwordConf,
-            Phonenumber:props.phoneNumber,
-            PublicationsName:props.commericalNAme,
-            IdentityPath:values.idCardImage,
-            PublicationImage:values.logoImage,
-            CardNumber: props.cardNumber,
-            Address :props.address,
-          })
-          setSubmitting(false);
+        mutate({
+          username: props.username,
+          email: props.email,
+          password: props.password,
+          password2: props.passwordConf,
+          phone_number: props.phoneNumber,
+          publications_name: props.commericalNAme,
+          publications_image: values.logoImage,
+          card_number: props.cardNumber,
+          identity_image: values.idCardImage,
+          address: props.address,
+        });
+        setSubmitting(false);
       }}
     >
       {(formik) => (
