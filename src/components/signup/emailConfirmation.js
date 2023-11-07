@@ -34,8 +34,8 @@ function EmailConfirmation(props) {
             errorBorderColor="error"
             onComplete={(value) => {
               mutate({
-                Email:props.email,
-                Code:value
+                email:props.email,
+                activation_code:value
               });
 
               // buttonHandler();

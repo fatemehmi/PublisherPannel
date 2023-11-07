@@ -27,10 +27,10 @@ function GetUserInfoForm(props) {
       })}
       onSubmit={(values, { setSubmitting }) => {
           mutate({
-             Username:values.username,
-             Email:props.email,
-             Password:values.password,
-             Password2:values.passwordConf
+             username:values.username,
+             email:props.email,
+             password:values.password,
+             password2:values.passwordConf
           });
           setSubmitting(false);
       }}
