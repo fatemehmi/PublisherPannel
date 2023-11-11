@@ -7,8 +7,9 @@ function CustomInput(props) {
   return (
     <div className="flex flex-col gap-y-[8px]">
       {props.validation ? (
+        <>
         <Field
-        id={props.id}
+          id={props.id}
           name={props.name}
           type={props.type}
           placeholder={props.placeholder}
@@ -16,20 +17,24 @@ function CustomInput(props) {
             props.error&&props.touched ? "border-red-500" : ""
           }`}
         />
-      ) : (
-        <input
-        id={props.id}
-          name={props.name}
-          type={props.type}
-          placeholder={props.placeholder}
-          className={`h-[51px] border-[2px] border-primary rounded-2xl px-[20px] py-[16px] ${props.className}`}
-        />
-      )}
-      {props.validation ?(<p
+        <p
         className={`text-[12px] font-light ${props.error&&props.touched ? "text-error" : ""}`}
       >
         <ErrorMessage name={props.name} />
-      </p>):''}
+      </p>
+        </>
+      ) : (
+        <Field
+          id={props.id}
+          name={props.name}
+          type={props.type}
+          placeholder={props.placeholder}
+          className={`h-[51px] border-[2px] border-primary rounded-2xl px-[20px] py-[16px] focus:outline-none ${props.className} ${
+            props.error&&props.touched ? "border-red-500" : ""
+          }`}
+        />
+      )}
+
     </div>
   );
 }

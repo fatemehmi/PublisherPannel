@@ -1,21 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
-import APIClient from "../services/apiClient"; 
 import { useRouter } from "next/router";
+import APIClient from "../services/apiClient";
 import { API_ENDPOINTS } from "@/utils/api/endpoints";
 
 const apiClient=new APIClient('')
 
-
-const useSendUserSignupInfo=()=> {
+function useSendResetPasswordInfo() {
   const router=useRouter()
 
   return useMutation({
     mutationFn: apiClient.post,
     onSuccess: (data) => {
-      console.log(data);
+      console.log(data)
       router.push('/login')
     },
   });
 }
 
-export default useSendUserSignupInfo
+export default useSendResetPasswordInfo

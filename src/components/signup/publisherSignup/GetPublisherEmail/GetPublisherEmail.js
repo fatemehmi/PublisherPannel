@@ -16,7 +16,7 @@ function GetPublisherEmail(props){
             برای ساخت <span className="text-primary">حساب شخصی</span> ،اطلاعات
             خود را وارد کنید.
           </CustomCardParagraph>
-          <GetEmailForm setStep={props.setStep} emailValue={props.emailValue} setEmailValue={props.setEmailValue}/>
+          <GetEmailForm setStep={props.setStep} emailValue={props.emailValue} setEmailValue={props.setEmailValue} endpoint="send-signup-email"/>
           <p className="font-medium text-[12px] leading-[18.75px] text-black text-right">
             {" "}
             ثبت نام در بوکلند به معنی موافقت با{" "}
