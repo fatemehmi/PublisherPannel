@@ -49,7 +49,7 @@ function PublisherDocumentsForm(props) {
           password: props.password,
           password2: props.passwordConf,
           phone_number: props.phoneNumber,
-          publications_name: props.commericalNAme,
+          publications_name: props.commericalName,
           publications_image: values.logoImage,
           card_number: props.cardNumber,
           identity_image: values.idCardImage,

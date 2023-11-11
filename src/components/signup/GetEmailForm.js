@@ -6,7 +6,7 @@ import useSendEmail from "@/react-query/hooks/useSendEmail";
 
 
 function GetEmailForm(props) {
-  const{mutate,isLoading,error}=useSendEmail(props.setStep)
+  const{mutate,isLoading,error}=useSendEmail(props.setStep,props.endpoint)
   return (
     <Formik
       initialValues={{

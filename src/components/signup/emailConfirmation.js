@@ -4,7 +4,6 @@ import CustomCardHeader from "@/components/ui/login-submit/CustomCard/CustomCard
 import CustomCardParagraph from "@/components/ui/login-submit/CustomCard/CustomCardParagraph";
 import { PinInput, PinInputField, HStack } from "@chakra-ui/react";
 import useSendVerificationCode from "@/react-query/hooks/useSendVerificationCode";
-// TODO:validation
 
 function EmailConfirmation(props) {
   // const [disable, setDisable] = useState(true);
@@ -33,6 +32,7 @@ function EmailConfirmation(props) {
             focusBorderColor="primary"
             errorBorderColor="error"
             onComplete={(value) => {
+              props.setVerifyCode(value)
               mutate({
                 email:props.email,
                 activation_code:value
