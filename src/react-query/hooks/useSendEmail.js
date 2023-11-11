@@ -9,7 +9,6 @@ const useSendEmail=(setStepfunc,endpoint)=> {
     return useMutation({
         mutationFn: apiClient.post,
         onSuccess: (data) => {
-          endpoint==="send-signup-email"?console.log("...signup"):""
           console.log(data)
           setStepfunc(2)
         },

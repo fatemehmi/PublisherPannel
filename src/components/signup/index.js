@@ -11,7 +11,6 @@ function Signup() {
   const [step, setStep] = useState(1);
   const [emailValue, setEmailValue] = useState(null);
   const [verifyCode,setVerifyCode]=useState()
-  
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-center`}
