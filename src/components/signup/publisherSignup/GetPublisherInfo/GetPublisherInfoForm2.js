@@ -5,8 +5,16 @@ import CustomButton from "../../../ui/CustomButton";
 import CustomInput from "../../../ui/CustomInput";
 import CustomCardHeader from "@/components/ui/login-submit/CustomCard/CustomCardHeader";
 import CustomInputLabel from "@/components/ui/CustomInputLabel";
+import { Input } from "@chakra-ui/react";
 
 function GetPublisherInfoForm2(props) {
+
+  const cardNumberHandler=(e)=>{
+
+    if(e.target.value.length%4===0){
+      e.target.value=e.target.value+" "
+    }
+  }
 
   return (
     <Formik
@@ -22,7 +30,7 @@ function GetPublisherInfoForm2(props) {
         commericalName: Yup.string().required(
           "وارد کردن نام تجاری اجباری است."
         ).min(3,"نام تجاری باید حداقل 3 کاراکتر داشته باشد."),
-        phoneNumber: Yup.string().required("وارد کردن شماره تلفن اجباری است."),
+        phoneNumber: Yup.string().required("وارد کردن شماره تلفن اجباری است.").matches(/^09\d{9}$/,"شماره تلفن باید با 09 شروع شده و دارای 11 رقم باشد."),
         cardNumber:Yup.string().required("وارد کردن شماره کارت اجباری است.").min(16,"شماره کارت 16 رقمی است."),
       })}
       onSubmit={(values, { setSubmitting }) => {
@@ -60,10 +68,11 @@ function GetPublisherInfoForm2(props) {
           <CustomInputLabel htmlFor="cardNumber">شماره حساب</CustomInputLabel>
           <CustomInput
             name="cardNumber"
-            type="text"
+            type="string"
             validation={true}
             error={formik.errors.cardNumber}
             touched={formik.touched.cardNumber}
+            className="ltr"
           />
           <CustomCardHeader>آدرس</CustomCardHeader>
 

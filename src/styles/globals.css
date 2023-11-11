@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer utilities {
+  .ltr {
+    direction: ltr;
+  }
+}
+
 @font-face {
   font-family: "Vazirmatn";
   src: url('../../public/assets/fonts/Vazirmatn-Thin.ttf');

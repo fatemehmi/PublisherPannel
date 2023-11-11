@@ -21,6 +21,7 @@ function PublisherDocumentsForm(props) {
     };
 
     reader.readAsDataURL(file);
+    
   };
 
   const onUploadIdCardImage = (e) => {
@@ -50,9 +51,9 @@ function PublisherDocumentsForm(props) {
           password2: props.passwordConf,
           phone_number: props.phoneNumber,
           publications_name: props.commericalName,
-          publications_image: values.logoImage,
+          publications_image: values.logoImage.replace("C:\\fakepath\\",''),
           card_number: props.cardNumber,
-          identity_image: values.idCardImage,
+          identity_image: values.idCardImage.replace("C:\\fakepath\\",''),
           address: props.address,
         });
         setSubmitting(false);

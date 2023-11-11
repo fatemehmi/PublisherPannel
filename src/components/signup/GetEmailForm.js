@@ -10,7 +10,7 @@ function GetEmailForm(props) {
   return (
     <Formik
       initialValues={{
-        email: "",
+        email: props.emailValue,
       }}
       validationSchema={Yup.object({
         email: Yup.string()
@@ -22,7 +22,8 @@ function GetEmailForm(props) {
           .required("وارد کردن ایمیل اجباری است."),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(isLoading)
+        // console.log(isLoading)
+        console.log(values.email)
           mutate({
             email:values.email 
           })
@@ -34,7 +35,6 @@ function GetEmailForm(props) {
           <div className="flex flex-col gap-y-[8px]">
             <CustomInputLabel htmlFor="email">ایمیل</CustomInputLabel>
             <Field
-              value={props.emailValue}
               onChange={(e) => {
                 props.setEmailValue(e.target.value);
                 formik.handleChange(e);

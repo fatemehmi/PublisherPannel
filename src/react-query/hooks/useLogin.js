@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Cookies from 'js-cookie';
 
 const apiClient=new APIClient(API_ENDPOINTS.LOGIN)
-var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+var inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
 
 const useLogin=()=> {
     const router=useRouter()
@@ -14,7 +14,7 @@ const useLogin=()=> {
         mutationFn: apiClient.post,
         onSuccess: (data) => {
           console.log(data)
-          const token='ldkcnksdnfkdsdn'
+          const token=data.token
           Cookies.set('token', token, { expires: inFifteenMinutes});
           router.push('/')
         },
