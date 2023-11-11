@@ -2,11 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import APIClient from "../services/apiClient";
 import { API_ENDPOINTS } from "@/utils/api/endpoints";
 
-const apiClient=new APIClient()
 
 const useSendEmail=(setStepfunc,endpoint)=> {
 
-  const apiClient=endpoint==="send-signup-email"?new APIClient():new APIClient()
+  const apiClient=endpoint==="send-signup-email"?new APIClient(API_ENDPOINTS.SEND_SIGNUP_EMAIL):new APIClient(API_ENDPOINTS.SEND_RESET_PASSWORD_CODE)
     return useMutation({
         mutationFn: apiClient.post,
         onSuccess: (data) => {

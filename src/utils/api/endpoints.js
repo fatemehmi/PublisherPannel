@@ -6,6 +6,5 @@ export const API_ENDPOINTS = {
     LOGIN:"/api/auth/login",
     RESET_PASSWORD:"/api/auth/reset-password",
     SEND_RESET_PASSWORD_CODE:"/api/auth/send-resetpassword-code"
-
 }
   

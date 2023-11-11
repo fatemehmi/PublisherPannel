@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/posts",
+  baseURL: "https://Localhost:8000",
 });
 
 class APIClient {
