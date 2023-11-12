@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-    const [token,setToken]=useState(Cookies.get('token'))
-    console.log(token)
+    const token=Cookies.get('token')
+    const{reload}=useRouter()
  return (
   <main
    className={`flex min-h-screen flex-col items-center justify-between p-24`}
@@ -14,7 +14,7 @@ export default function Home() {
     <div>
         {token?<button onClick={()=>{
             Cookies.remove('token')
-            setToken('')}}>Logout</button>:""}
+            reload()}}>Logout</button>:""}
     </div>
     
   </main>
