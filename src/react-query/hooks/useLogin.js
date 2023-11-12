@@ -14,7 +14,7 @@ const useLogin=()=> {
         mutationFn: apiClient.post,
         onSuccess: (data) => {
           console.log(data)
-          const token=data.token
+          const token=data
           Cookies.set('token', token, { expires: inFifteenMinutes});
           router.push('/')
         },
