@@ -34,7 +34,8 @@ const AppQueryClientProvider = ({ children }) => {
       },
       mutations: {
         onError(err) {
-          showToast(err.message);
+          // console.log(err.response.data.result.error_message)
+          showToast(err.response.data.result.error_message);
         },
       },
     },

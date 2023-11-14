@@ -8,7 +8,7 @@ function GetPublisherInfo2(props) {
 
   return (
 
-        <CustomCardContainer roundedTop="20px">
+        <CustomCardContainer roundedTop="20px" marginTop="50px" marginBottom="50px">
           <CustomCardHeader>
             <p>مشخصات انتشارات</p>
           </CustomCardHeader>
