@@ -6,7 +6,7 @@ import useSendEmail from "@/react-query/hooks/useSendEmail";
 
 
 function GetEmailForm(props) {
-  const{mutate,isLoading,error}=useSendEmail(props.setStep,props.endpoint)
+  const{mutate,isLoading,error}=useSendEmail(props.endpoint,props.setStep)
   return (
     <Formik
       initialValues={{
@@ -27,6 +27,7 @@ function GetEmailForm(props) {
           mutate({
             email:values.email 
           })
+          props.buttonHandler()
           setSubmitting(false);
       }}
     >
@@ -56,7 +57,6 @@ function GetEmailForm(props) {
               <ErrorMessage name="email" />
             </p>
           </div>
-          {error&&<div className="h-[44px] rounded-[12px] border-[1px] border-error p-[10px] bg-[#D627371A] text-error text-[16px] font-semibold">{error.message}</div>}
           <CustomButton type="submit">{isLoading?"Adding...":"ادامه"}</CustomButton>
         </Form>
       )}

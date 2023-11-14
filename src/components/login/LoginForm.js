@@ -39,11 +39,6 @@ function LoginForm(props) {
             <CustomInputLabel htmlFor="password">رمز عبور</CustomInputLabel>
             <CustomInput name="password" type="password" />
           </div>
-          {error && (
-            <div className="h-[44px] rounded-[12px] border-[1px] border-error p-[10px] bg-[#D627371A] text-error text-[16px] font-semibold">
-              {error.message}
-            </div>
-          )}
           <CustomButton type="submit">
             {isLoading ? "Adding..." : "تایید"}
           </CustomButton>

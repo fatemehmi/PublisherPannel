@@ -4,17 +4,16 @@ import GetUserEmail from "./userSignup/getUserEmail/GetUserEmail";
 import GetPublisherEmail from "./publisherSignup/GetPublisherEmail/GetPublisherEmail";
 import EmailConfirmation from "./emailConfirmation";
 import GetUserInfo from "./userSignup/getUserInfo";
-import GetPublisherInfo from '@/components/signup/publisherSignup/GetPublisherInfo'
+import GetPublisherInfo from "@/components/signup/publisherSignup/GetPublisherInfo";
 
 function Signup() {
   const [role, setRole] = useState("user");
   const [step, setStep] = useState(1);
   const [emailValue, setEmailValue] = useState(null);
-  const [verifyCode,setVerifyCode]=useState()
+  const [verifyCode, setVerifyCode] = useState();
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-center`}
-    >
+    <main className={`flex min-h-screen flex-col items-center justify-center`}>
       {step === 1 && (
         <div>
           <Flex alignItems="flex-end">
@@ -63,15 +62,9 @@ function Signup() {
           setStep={() => setStep(3)}
         />
       )}
-      {step === 3 && role === "user" && (
-        <GetUserInfo
-          email={emailValue}
-        />
-      )}
+      {step === 3 && role === "user" && <GetUserInfo email={emailValue} />}
       {step === 3 && role === "publisher" && (
-        <GetPublisherInfo
-          email={emailValue}
-        />
+        <GetPublisherInfo email={emailValue} />
       )}
     </main>
   );

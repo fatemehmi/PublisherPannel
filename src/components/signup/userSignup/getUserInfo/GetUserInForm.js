@@ -65,7 +65,7 @@ function GetUserInfoForm(props) {
             error={formik.errors.passwordConf}
             touched={formik.touched.passwordConf}
           />
-          <CustomButton isDisable={!(validatePass(formik.values.password).every(el=>el.value))} type="submit" >ادامه</CustomButton>
+          <CustomButton disabled={!(validatePass(formik.values.password).every(el=>el.value))} type="submit" >ادامه</CustomButton>
         </Form>
       )}
     </Formik>
