@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { API_ENDPOINTS } from "@/utils/api/endpoints";
 
 const apiClient=new APIClient(API_ENDPOINTS.USER_SIGNUP)
+var inhalfHours = new Date(new Date().getTime() + 30 * 60 * 1000);
 
 
 const useSendUserSignupInfo=()=> {
@@ -13,7 +14,9 @@ const useSendUserSignupInfo=()=> {
     mutationFn: apiClient.post,
     onSuccess: (data) => {
       console.log(data);
-      router.push('/login')
+      const token=data.data
+          Cookies.set('token', token, { expires: inhalfHours});
+          router.push('/')
     },
   });
 }

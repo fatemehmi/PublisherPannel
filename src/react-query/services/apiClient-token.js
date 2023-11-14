@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie' 
 
 const token = Cookies.get('token');
 
@@ -27,6 +28,11 @@ class APIClientToken {
   post=(data)=> {
     return axiosInstance
     .post(this.endpoint,data,config)
+    .then((res) => res.data);
+  }
+  put=(data)=> {
+    return axiosInstance
+    .put(this.endpoint,data,config)
     .then((res) => res.data);
   }
 }
