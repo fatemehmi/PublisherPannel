@@ -17,10 +17,6 @@ function GetPublisherInfo2(props) {
             <span className="text-primary">ویرایش</span> کنید.
           </CustomCardParagraph>
           <GetPublisherInfoForm2
-            setCommericalName={props.setCommericalName}
-            setPhoneNumber={props.setPhoneNumber}
-            setCardNumber={props.setCardNumber}
-            setAddress={props.setAddress}
             setStep={props.setStep}
           />
         </CustomCardContainer>

@@ -1,7 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
 function CustomButton(props) {
-  console.log(props._before);
   return (
     <Button
       overflow="hidden"

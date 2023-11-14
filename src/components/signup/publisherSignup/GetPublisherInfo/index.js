@@ -8,13 +8,6 @@ import { useState } from "react";
 
 function GetPublisherInfo(props) {
   const [step, setStep] = useState(1);
-  const [username,setUsername]=useState()
-  const [password,setPassword]=useState()
-  const [passwordConf,setPasswordConf]=useState()
-  const [commericalName, setCommericalName] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [cardNumber, setCardNumber] = useState();
-  const [address, setAddress] = useState();
   return (
     <>
       {step === 1 && (
@@ -27,9 +20,7 @@ function GetPublisherInfo(props) {
             <span className="text-primary">ویرایش</span> کنید.
           </CustomCardParagraph>
           <GetPublisherInfoForm1
-            setUsername={setUsername}
-            setPassword={setPassword}
-            setPasswordConf={setPasswordConf}
+            email={props.email}
             setStep={setStep}
           />
         </CustomCardContainer>
@@ -37,23 +28,11 @@ function GetPublisherInfo(props) {
 
       {step === 2 && (
         <GetPublisherInfo2
-          setCommericalName={setCommericalName}
-          setPhoneNumber={setPhoneNumber}
-          setCardNumber={setCardNumber}
-          setAddress={setAddress}
           setStep={setStep}
         />
       )}
       {step === 3 && (
         <PublisherDocuments
-          email={props.email}
-          username={username}
-          password={password}
-          passwordConf={passwordConf}
-          commericalName={commericalName}
-          phoneNumber={phoneNumber}
-          cardNumber={cardNumber}
-          address={address}
         />
       )}
     </>

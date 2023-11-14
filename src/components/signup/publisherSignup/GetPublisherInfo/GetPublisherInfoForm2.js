@@ -6,15 +6,11 @@ import CustomInput from "../../../ui/CustomInput";
 import CustomCardHeader from "@/components/ui/login-submit/CustomCard/CustomCardHeader";
 import CustomInputLabel from "@/components/ui/CustomInputLabel";
 import { Input } from "@chakra-ui/react";
+import useSendPublisherSignupInfo1 from '@/react-query/hooks/useSendPublisherSignupInfo1'
 
 function GetPublisherInfoForm2(props) {
 
-  const cardNumberHandler=(e)=>{
-
-    if(e.target.value.length%4===0){
-      e.target.value=e.target.value+" "
-    }
-  }
+  const{mutate}=useSendPublisherSignupInfo1(props.setStep)
 
   return (
     <Formik
@@ -34,13 +30,12 @@ function GetPublisherInfoForm2(props) {
         cardNumber:Yup.string().required("وارد کردن شماره کارت اجباری است.").min(16,"شماره کارت 16 رقمی است."),
       })}
       onSubmit={(values, { setSubmitting }) => {
-          props.setCommericalName(values.commericalName);
-          props.setPhoneNumber(values.phoneNumber)
-          props.setCardNumber(values.cardNumber);
-          props.setAddress(
-            values.city + values.street + values.moreAddressInfo
-          );
-          props.setStep(3);
+        mutate({
+          publications_name:values.commericalName,
+          phone_number:values.phoneNumber,
+          card_number:values.cardNumber,
+          address:values.city + values.street + values.moreAddressInfo
+        })
           setSubmitting(false);
       }}
     >

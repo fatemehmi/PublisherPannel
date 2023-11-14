@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 
 function EmailConfirmation(props) {
   let width;
-  
   const { pathname } = useRouter();
   const { mutate, isLoading, error } = useSendVerificationCode(props.setStep);
   const { mutate: loginResendCodeMutation } = useSendEmail();
@@ -20,7 +19,6 @@ function EmailConfirmation(props) {
   const[currentTime,setCurrentTime]=useState(0)
   const isDisabled=currentTime<120
   width=currentTime*10/12
-  console.log(width)
 
   useEffect(()=>{
     let timer

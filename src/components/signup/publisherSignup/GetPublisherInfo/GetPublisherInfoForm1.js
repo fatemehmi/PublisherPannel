@@ -6,8 +6,10 @@ import CustomInput from "@/components/ui/CustomInput";
 import CustomInputLabel from "@/components/ui/CustomInputLabel";
 import CustomPassInput from "@/components/ui/CustomPassInput";
 import validatePass from "@/helpers/validatePass";
+import useSendPublisherSignupInfo from "@/react-query/hooks/useSendPublisherSignupInfo";
 
 function GetPublisherInfoForm1(props) {
+  const{mutate}=useSendPublisherSignupInfo(props.setStep)
   return (
     <Formik
       initialValues={{
@@ -22,10 +24,15 @@ function GetPublisherInfoForm1(props) {
      .oneOf([Yup.ref('password'), null], 'رمز عبور و تکرار آن یکسان نیستند.')
       })}
       onSubmit={(values, { setSubmitting }) => {
-          props.setUsername(values.username)
-          props.setPassword(values.password)
-          props.setPasswordConf(values.passwordConf)
-          props.setStep(2)
+        console.log(
+          values,props.email
+        )
+          mutate({
+            username:values.username,
+            email:props.email,
+            password:values.password,
+            password2:values.passwordConf
+          })
           setSubmitting(false);
       }}
     >
