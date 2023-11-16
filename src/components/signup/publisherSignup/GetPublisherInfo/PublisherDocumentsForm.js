@@ -15,8 +15,6 @@ function PublisherDocumentsForm(props) {
   const [isValidIdImage, setIsValidIdImage] = useState(true);
   const [isValidLogoImage, setIsValidLogoImage] = useState(true);
 
-  const idCardError = {};
-  const logoError = {};
 
   function validateFile(file) {
     const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
@@ -37,8 +35,6 @@ function PublisherDocumentsForm(props) {
   };
 
   const onUploadIdCardImage = (e) => {
-    console.log(e.target.files[0].size);
-    console.log(e.target.files[0].type);
     if (e.target.files.length > 0) {
       convert2base64(e.target.files[0], setIdCardImg);
     }
@@ -55,6 +51,10 @@ function PublisherDocumentsForm(props) {
       const formData=new FormData()
       formData.append("publications_image",logoImage)
       formData.append("identity_image",idCardImage)
+      for (const value of formData.values()) {
+        console.log(value);
+      }
+      console.log(formData.values)
       mutate(formData);
     }
   }
@@ -148,7 +148,7 @@ function PublisherDocumentsForm(props) {
           />
         </Flex>
       </Flex>
-      <CustomButton type="submit" onClick={submitHandler}>
+      <CustomButton type="submit" disabled={idCardImage===null} onClick={submitHandler}>
         ادامه
       </CustomButton>
     </form>

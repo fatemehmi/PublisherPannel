@@ -12,9 +12,6 @@ console.log('mutate')
     onSuccess: (data) => {
       console.log(data)
       setStepfunc(3)
-    },
-    onError:(err)=>{
-        console.log(err)
     }
   });
 }

@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import APIClient from "../services/apiClient";
+import APIClientToken from "../services/apiClient-token";
 import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import { useRouter } from "next/router";
 import Cookies from 'js-cookie';
 
-const apiClient=new APIClient(API_ENDPOINTS.LOGIN)
+const apiClient=new APIClientToken(API_ENDPOINTS.LOGIN)
 var inhalfHours = new Date(new Date().getTime() + 30 * 60 * 1000);
 
 const useLogin=()=> {

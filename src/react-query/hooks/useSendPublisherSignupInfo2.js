@@ -13,9 +13,6 @@ function useSendPublisherSignupInfo() {
     onSuccess: (data) => {
       console.log(data)
       router.push("/")
-    },
-    onError:(err)=>{
-        console.log(err)
     }
   });
 }
