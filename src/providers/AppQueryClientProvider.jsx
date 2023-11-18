@@ -27,6 +27,7 @@ const AppQueryClientProvider = ({ children }) => {
         retryDelay: 1000,
         onError(err) {
           if (err.response.status === 401 || err.response.status === 403) {
+            showToast(err.response.data.result.error_message);
             Cookies.delete("token");
             reload();
           }
