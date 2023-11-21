@@ -4,13 +4,14 @@ import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 import Cookies from "js-cookie";
 
-const useGetMyBooks = () => {
+const useGetFavoriteBooks = () => {
   const showToast=useShowToast()
   const token = Cookies.get("token");
   return useQuery({
-    queryKey:["userbooks"],
-    queryFn:()=>axios.get("http://Localhost:8000"+API_ENDPOINTS.GET_BOOKS,{headers:{ Authorization: "Bearer " + token}}).then(res=>res.data).catch(err=>showToast(err.response.data.result.error_message)),
+    queryKey:["bookmarks"],
+    queryFn:()=>axios.get("http://Localhost:8000"+API_ENDPOINTS.GET_BOOKMARKS,{headers:{ Authorization: "Bearer " + token}}).then(res=>res.data).catch(err=>showToast(err.response.data.result.error_message)),
   });
 };
 
-export default useGetMyBooks;
+export default useGetFavoriteBooks;
+

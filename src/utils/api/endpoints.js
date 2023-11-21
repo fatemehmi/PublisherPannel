@@ -7,6 +7,8 @@ export const API_ENDPOINTS = {
     VERIFY_CODE:"/api/auth/verify-email-code",
     LOGIN:"/api/auth/login",
     RESET_PASSWORD:"/api/auth/reset-password",
-    SEND_RESET_PASSWORD_CODE:"/api/auth/send-resetpassword-code"
+    SEND_RESET_PASSWORD_CODE:"/api/auth/send-resetpassword-code",
+    GET_BOOKS:"/api/user/books",
+    GET_BOOKMARKS:"/api/user/bookmarks"
 }
   

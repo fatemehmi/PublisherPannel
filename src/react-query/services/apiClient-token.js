@@ -1,6 +1,5 @@
 import axios from "axios";
-import Cookies from 'js-cookie' 
-
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
   baseURL: "http://Localhost:8000",
@@ -22,7 +21,9 @@ class APIClientToken {
   }
 
   getAll = () => {
-    return axiosInstance.get(this.endpoint, this.setHeaders()).then((res) => res.data);
+    return axiosInstance
+      .get(this.endpoint, this.setHeaders())
+      .then((res) => res.data).catch((err)=>console.log(err));
   };
   post = (data) => {
     return axiosInstance
@@ -36,4 +37,4 @@ class APIClientToken {
   };
 }
 
-export default APIClientToken
+export default APIClientToken;

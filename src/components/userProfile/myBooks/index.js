@@ -1,19 +1,30 @@
-import React from 'react'
-import BooksList from '../BooksList'
-import useGetMyBooks from '@/react-query/hooks/useGetMyBooks'
-import filterBooks from '@/helpers/filterBooks'
+import BooksList from "../BooksList";
+import useGetMyBooks from "@/react-query/hooks/useGetMyBooks";
+import Sidebar from "../Sidebar";
 
-function MyBooks(props) {
-    const{data:myBooks,isLoading}=useGetMyBooks()
 
-    const filteredBooks=filterBooks(props.searchValue,myBooks)
-    
-    if (isLoading){
-        return<p>isLoading...</p>
-    }
+function MyBooks() {
+  const { data, isLoading, isError } = useGetMyBooks();
+
+  if (isLoading) {
+    return (
+      <Sidebar pageName="userProfile">
+        <p>isLoading...</p>
+      </Sidebar>
+    );
+  }
+  if (isError) {
+    return (
+      <Sidebar pageName="userProfile">
+        <p>Something went wrong...</p>
+      </Sidebar>
+    );
+  }
   return (
-    <BooksList booksArray={filteredBooks}/>
-  )
+    <Sidebar pageName="userProfile">
+      <BooksList booksArray={data.data}/>
+    </Sidebar>
+  );
 }
 
-export default MyBooks
+export default MyBooks;
