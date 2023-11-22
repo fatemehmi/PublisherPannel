@@ -7,6 +7,9 @@ import useSendEmail from "@/react-query/hooks/useSendEmail";
 
 function GetEmailForm(props) {
   const{mutate,isLoading,error}=useSendEmail(props.endpoint,props.setStep)
+  // if(isLoading){
+  //   return(<p> isLoading</p>)
+  // }
   return (
     <Formik
       initialValues={{
@@ -22,7 +25,7 @@ function GetEmailForm(props) {
           .required("وارد کردن ایمیل اجباری است."),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        // console.log(isLoading)
+        console.log(isLoading)
         console.log(values.email)
           mutate({
             email:values.email 
