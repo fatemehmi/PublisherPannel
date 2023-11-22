@@ -1,6 +1,6 @@
 import BooksList from "../BooksList";
 import useGetMyBooks from "@/react-query/hooks/useGetMyBooks";
-import Sidebar from "../Sidebar";
+import Sidebar from "@/components/Sidebar.js";
 
 
 function MyBooks() {

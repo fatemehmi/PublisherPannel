@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import BooksList from "../BooksList";
 import useGetBookmarks from "@/react-query/hooks/useGetBookmarks";
-import Sidebar from "../Sidebar";
+import Sidebar from "@/components/Sidebar.js";
 
 function MyBookmarks() {
   const { data, isLoading, isError } = useGetBookmarks();
