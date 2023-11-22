@@ -13,4 +13,6 @@ export const API_ENDPOINTS = {
   WALLET: "/api/user/wallet/ChargeUserWallet",
   USER_PROFILE: "/api/user/profile",
   WALLET_HISTORY: "/api/user/wallet-history",
+  BALANCE: "/api/user/wallet-balance",
+  CHANGE_PASS: "/api/user/change-password",
 };
