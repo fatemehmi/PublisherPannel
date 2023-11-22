@@ -23,15 +23,10 @@ const coinStyle = {
 };
 
 const Wallet = () => {
-	const {
-		mutate,
-		isLoading,
-		error,
-		currentAmount,
-		isPaymentLoading,
-		paymentError,
-	} = useWallet();
+	const { mutate, isLoading } = useWallet();
 	const [inputValue, setInputValue] = useState("۲۰۰۰۰۰");
+
+	const currentAmount = ""; // this will be change. it is for test only
 
 	const handleInputChange = (event) => {
 		const persianValue = event.target.value.replace(/[0-9]/g, (match) => {
@@ -72,7 +67,7 @@ const Wallet = () => {
 						<span style={{ fontSize: "24px" }}>
 							دارایی حساب شما:
 						</span>
-						{currentAmount !== undefined ? (
+						{currentAmount !== "" ? (
 							<>
 								<span style={{ fontSize: "32px" }}>
 									&nbsp; {currentAmount.toLocaleString()}
@@ -203,7 +198,6 @@ const Wallet = () => {
 								borderRadius="16px"
 								width="376px"
 								height="41px"
-								disabled={isPaymentLoading}
 							>
 								<Input
 									name="amount"
@@ -229,7 +223,6 @@ const Wallet = () => {
 								bg="#575DFB"
 								width="198px"
 								padding="8px"
-								isLoading={isPaymentLoading}
 							>
 								خرید
 							</Button>
