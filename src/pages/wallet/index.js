@@ -13,6 +13,21 @@ import { useRouter } from "next/router";
 import useWallet from "@/react-query/hooks/usewallet";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import useBalance from "@/react-query/hooks/useBalance";
+
+const persianToEnglish = (persianValue) => {
+	const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+	const englishDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+	for (let i = 0; i < 10; i++) {
+		persianValue = persianValue.replace(
+			new RegExp(persianDigits[i], "g"),
+			englishDigits[i]
+		);
+	}
+
+	return persianValue;
+};
 
 const coinStyle = {
 	height: "110px",
@@ -23,15 +38,10 @@ const coinStyle = {
 };
 
 const Wallet = () => {
-	const {
-		mutate,
-		isLoading,
-		error,
-		currentAmount,
-		isPaymentLoading,
-		paymentError,
-	} = useWallet();
+	const { mutate, isLoading } = useWallet();
 	const [inputValue, setInputValue] = useState("۲۰۰۰۰۰");
+
+	const currentAmount = ""; // this will be change. it is for test only
 
 	const handleInputChange = (event) => {
 		const persianValue = event.target.value.replace(/[0-9]/g, (match) => {
@@ -63,6 +73,7 @@ const Wallet = () => {
 
 	const router = useRouter();
 	const pageName = router.pathname;
+	const { balance, isError } = useBalance();
 
 	return (
 		<div>
@@ -72,7 +83,7 @@ const Wallet = () => {
 						<span style={{ fontSize: "24px" }}>
 							دارایی حساب شما:
 						</span>
-						{currentAmount !== undefined ? (
+						{currentAmount !== "" ? (
 							<>
 								<span style={{ fontSize: "32px" }}>
 									&nbsp; {currentAmount.toLocaleString()}
@@ -83,7 +94,7 @@ const Wallet = () => {
 										color: "#C8C8C8",
 									}}
 								>
-									{" "}
+									{balance}
 									تومان
 								</span>
 							</>
@@ -184,9 +195,13 @@ const Wallet = () => {
 							.max(2000000, "Amount must be at most 2000000"),
 					})}
 					onSubmit={(values, { setSubmitting }) => {
+						const amount = parseInt(
+							persianToEnglish(inputValue),
+							10
+						);
 						console.log(isLoading);
 						mutate({
-							amount: inputValue,
+							amount: amount,
 						});
 						setSubmitting(false);
 					}}
@@ -203,7 +218,6 @@ const Wallet = () => {
 								borderRadius="16px"
 								width="376px"
 								height="41px"
-								disabled={isPaymentLoading}
 							>
 								<Input
 									name="amount"
@@ -229,7 +243,6 @@ const Wallet = () => {
 								bg="#575DFB"
 								width="198px"
 								padding="8px"
-								isLoading={isPaymentLoading}
 							>
 								خرید
 							</Button>

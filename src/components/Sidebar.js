@@ -35,7 +35,7 @@ const headingStyle = {
 };
 
 const Sidebar = (props) => {
-	const [input, setInput] = useState("ن");
+	const [input, setInput] = useState("");
 	const { pageName } = props;
 	const adjustedPageName = pageName.substring(1);
 

@@ -1,16 +1,21 @@
 import Sidebar from "@/components/Sidebar";
+import useUserProfile from "@/react-query/hooks/useUserProfile";
 import {
 	Box,
 	Button,
 	Card,
 	CardBody,
 	Divider,
+	FormErrorMessage,
 	Icon,
 	Input,
 	Text,
 	Textarea,
 } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import * as Yup from "yup";
+import validatePass from "@/helpers/validatePass";
 
 const headerStyle = {
 	fontSize: "20px",
@@ -70,6 +75,14 @@ const buttonStyle = {
 const UserProfile = () => {
 	const router = useRouter();
 	const pageName = router.pathname;
+
+	// const { email, username } = useUserProfile();
+
+	const { data } = useUserProfile();
+	const { email = "email@example.com", username = "sara" } = data || {};
+
+	const { mutate, isLoading, error } = useUserProfile();
+
 	return (
 		<div>
 			<Sidebar pageName={pageName}>
@@ -91,7 +104,7 @@ const UserProfile = () => {
 								alignItems="center"
 								borderRadius="16px"
 							>
-								سارا
+								{username}
 							</Text>
 						</div>
 						<div>
@@ -106,7 +119,7 @@ const UserProfile = () => {
 								alignItems="center"
 								borderRadius="16px"
 							>
-								Sara@gmail.com
+								{email}
 							</Text>
 						</div>
 					</Box>
@@ -122,17 +135,98 @@ const UserProfile = () => {
 						flexDir="row"
 						justifyContent="space-between"
 					>
-						<div>
-							<h2 style={labelStyle}>رمز عبور فعلی</h2>
-							<Input style={inputStyle}></Input>
-							<h2 style={labelStyle}>رمز عبور جدید</h2>
-							<Input style={inputStyle}></Input>
-							<h2 style={labelStyle}>تکرار رمز عبور جدید</h2>
-							<Input style={inputStyle}></Input>
-							<Button color="white" style={buttonStyle}>
-								تغییر رمز
-							</Button>
-						</div>
+						<Formik
+							initialValues={{
+								oldpass: "",
+								newpassword: "",
+								passwordConf: "",
+							}}
+							validationSchema={Yup.object({
+								oldpass: Yup.string().required(
+									"وارد کردن رمز عبور قبلی اجباری است."
+								),
+								newpassword: Yup.string().required(
+									"وارد کردن رمز عبور جدید اجباری است."
+								),
+								passwordConf: Yup.string()
+									.required(
+										"وارد کردن تکرار رمز عبور اجباری است."
+									)
+									.oneOf(
+										[Yup.ref("newpassword"), null],
+										"رمز عبور و تکرار آن یکسان نیستند."
+									),
+							})}
+							onSubmit={(values, { setSubmitting }) => {
+								alert(values);
+								mutate({
+									old_password: values.oldpass,
+									new_password: values.newpassword,
+								});
+								setSubmitting(false);
+							}}
+						>
+							{(formik) => (
+								<Form>
+									<h2 style={labelStyle}>رمز عبور فعلی</h2>
+									<Input
+										type="password"
+										name="oldpass"
+										style={inputStyle}
+										defaultValue={formik.values.oldpass}
+										isInvalid={
+											formik.errors.oldpass &&
+											formik.touched.oldpass
+										}
+										onChange={formik.handleChange}
+									/>
+									<h2 style={labelStyle}>رمز عبور جدید</h2>
+									<Input
+										type="password"
+										name="newpassword"
+										style={inputStyle}
+										defaultValue={formik.values.newpassword}
+										isInvalid={
+											formik.errors.newpassword &&
+											formik.touched.newpassword
+										}
+										onChange={formik.handleChange}
+									/>
+									<h2 style={labelStyle}>
+										تکرار رمز عبور جدید
+									</h2>
+									<Input
+										type="password"
+										name="passwordConf"
+										style={inputStyle}
+										defaultValue={
+											formik.values.passwordConf
+										}
+										isInvalid={
+											formik.errors.passwordConf &&
+											formik.touched.passwordConf
+										}
+										onChange={formik.handleChange}
+									/>
+									<Button
+										type="submit"
+										color="white"
+										style={buttonStyle}
+										disabled={
+											!validatePass(
+												formik.values.oldpass
+											).every((el) => el.value) &&
+											!validatePass(
+												formik.values.newpassword
+											).every((el) => el.value) &&
+											!formik.isValid
+										}
+									>
+										تغییر رمز
+									</Button>
+								</Form>
+							)}
+						</Formik>
 						<Box
 							display="flex"
 							padding="24px 40px"
