@@ -5,13 +5,24 @@ import useShowToast from "@/components/ui/useShowToast";
 import Cookies from "js-cookie";
 
 const useGetFavoriteBooks = () => {
-  const showToast=useShowToast()
+  const showToast = useShowToast();
   const token = Cookies.get("token");
   return useQuery({
-    queryKey:["bookmarks"],
-    queryFn:()=>axios.get("http://Localhost:8000"+API_ENDPOINTS.GET_BOOKMARKS,{headers:{ Authorization: "Bearer " + token}}).then(res=>res.data).catch(err=>showToast(err.response.data.result.error_message)),
+    queryKey: ["bookmarks"],
+    queryFn: () =>
+      axios
+        .get("http://Localhost:8000" + API_ENDPOINTS.GET_BOOKMARKS, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => res.data)
+        .catch((err) => {
+          showToast(err.response.data.result.error_message);
+          if (err.response.status === 401 || err.response.status === 403) {
+            token ? Cookies.delete("token") : "";
+            push("/login");
+          }
+        }),
   });
 };
 
 export default useGetFavoriteBooks;
-

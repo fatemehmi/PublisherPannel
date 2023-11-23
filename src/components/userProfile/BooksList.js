@@ -7,10 +7,9 @@ function BooksList(props) {
   const filteredBooks = filterBooks(props.searchValue, props.booksArray);
   return (
     <Flex
+    flexDir="column"
       width="100%"
-      flexWrap="wrap"
       rowGap="20px"
-      justifyContent="space-between"
     >
       {filteredBooks.map((book) => (
         <BookCard
