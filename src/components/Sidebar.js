@@ -167,8 +167,8 @@ const Sidebar = (props) => {
 				</Box>
 
 				{!(adjustedPageName === "userProfile") &&
-					!(adjustedPageName === "wallet") &&
-					!(adjustedPageName === "traactionHistory") && (
+					!(adjustedPageName === "transactionHistory") &&
+					!(adjustedPageName === "wallet") && (
 						<Input
 							onChange={(e) => setInput(e.target.value)}
 							placeholder="جست‌و‌جو در خواسته‌ها..."

@@ -1,18 +1,23 @@
-import { useMutation } from "@tanstack/react-query";
-import APIClientToken from "../services/apiClient-token";
+import { useQuery } from "@tanstack/react-query";
 import { API_ENDPOINTS } from "@/utils/api/endpoints";
-
-const apiClient = new APIClientToken(API_ENDPOINTS.USER_PROFILE);
+import axios from "axios";
+import useShowToast from "@/components/ui/useShowToast";
+import Cookies from "js-cookie";
 
 const useUserProfile = () => {
-	return useMutation({
-		mutationFn: apiClient.getAll,
-		onSuccess: (data) => {
-			console.log(data.data);
-		},
-		onError: (error) => {
-			console.error("Error fetching user data:", error);
-		},
+	const showToast = useShowToast();
+	const token = Cookies.get("token");
+	return useQuery({
+		queryKey: ["userinfo"],
+		queryFn: () =>
+			axios
+				.get("http://Localhost:8000" + API_ENDPOINTS.USER_PROFILE, {
+					headers: { Authorization: "Bearer " + token },
+				})
+				.then((res) => res.data)
+				.catch((err) =>
+					showToast(err.response.data.result.error_message)
+				),
 	});
 };
 

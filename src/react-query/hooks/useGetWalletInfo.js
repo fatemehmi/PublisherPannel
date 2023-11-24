@@ -1,15 +1,14 @@
-import APIClientToken from "../services/apiClient-token";
-import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import { useQuery } from "@tanstack/react-query";
+import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 import Cookies from "js-cookie";
 
-const useBalance = () => {
+const useGetWalletInfo = () => {
 	const showToast = useShowToast();
 	const token = Cookies.get("token");
 	return useQuery({
-		queryKey: ["balance"],
+		queryKey: ["walletinfo"],
 		queryFn: () =>
 			axios
 				.get("http://Localhost:8000" + API_ENDPOINTS.BALANCE, {
@@ -22,4 +21,4 @@ const useBalance = () => {
 	});
 };
 
-export default useBalance;
+export default useGetWalletInfo;

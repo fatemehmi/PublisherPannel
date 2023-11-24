@@ -2,7 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import {
 	Box,
 	Button,
-	CardHeader,
+	Flex,
 	Input,
 	InputGroup,
 	InputRightElement,
@@ -10,25 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import useWallet from "@/react-query/hooks/usewallet";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import useBalance from "@/react-query/hooks/useBalance";
-
-const persianToEnglish = (persianValue) => {
-	const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-	const englishDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-	for (let i = 0; i < 10; i++) {
-		persianValue = persianValue.replace(
-			new RegExp(persianDigits[i], "g"),
-			englishDigits[i]
-		);
-	}
-
-	return persianValue;
-};
-
+import useChargeWallet from "@/react-query/hooks/useChargeWallet";
+import useGetWalletInfo from "@/react-query/hooks/useGetWalletInfo";
 const coinStyle = {
 	height: "110px",
 	width: "165px",
@@ -38,42 +21,48 @@ const coinStyle = {
 };
 
 const Wallet = () => {
-	const { mutate, isLoading } = useWallet();
-	const [inputValue, setInputValue] = useState("۲۰۰۰۰۰");
+	const { data, isLoading: walletInfoIsLoading } = useGetWalletInfo();
+	const [inputValue, setInputValue] = useState();
+	const [error, setError] = useState(false);
+	const { mutate, isLoading } = useChargeWallet(inputValue);
 
 	const currentAmount = ""; // this will be change. it is for test only
 
-	const handleInputChange = (event) => {
-		const persianValue = event.target.value.replace(/[0-9]/g, (match) => {
-			const persianDigits = [
-				"۰",
-				"۱",
-				"۲",
-				"۳",
-				"۴",
-				"۵",
-				"۶",
-				"۷",
-				"۸",
-				"۹",
-			];
-			return persianDigits[+match];
-		});
+	// const handleInputChange = (event) => {
+	// 	const persianValue = event.target.value.replace(/[0-9]/g, (match) => {
+	// 		const persianDigits = [
+	// 			"۰",
+	// 			"۱",
+	// 			"۲",
+	// 			"۳",
+	// 			"۴",
+	// 			"۵",
+	// 			"۶",
+	// 			"۷",
+	// 			"۸",
+	// 			"۹",
+	// 		];
+	// 		return persianDigits[+match];
+	// 	});
 
-		setInputValue(persianValue);
-	};
+	// 	setInputValue(event.target.value);
+	// };
 
-	const handleKeyPress = (event) => {
-		const isValidInput = /^[0-9]*$/.test(event.key);
+	//   const handleKeyPress = (event) => {
+	//     const isValidInput = /^[0-9]*$/.test(event.key);
 
-		if (!isValidInput) {
-			event.preventDefault();
-		}
-	};
+	//     if (!isValidInput) {
+	//       event.preventDefault();
+	//     }
+	//   };
 
 	const router = useRouter();
 	const pageName = router.pathname;
-	const { balance, isError } = useBalance();
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		mutate();
+	};
 
 	return (
 		<div>
@@ -83,10 +72,13 @@ const Wallet = () => {
 						<span style={{ fontSize: "24px" }}>
 							دارایی حساب شما:
 						</span>
-						{currentAmount !== "" ? (
+						{walletInfoIsLoading && (
+							<span> درحال بارگیری اطلاعات...</span>
+						)}
+						{!walletInfoIsLoading && (
 							<>
 								<span style={{ fontSize: "32px" }}>
-									&nbsp; {currentAmount.toLocaleString()}
+									&nbsp;{data.data}
 								</span>
 								<span
 									style={{
@@ -94,12 +86,10 @@ const Wallet = () => {
 										color: "#C8C8C8",
 									}}
 								>
-									{balance}
+									{" "}
 									تومان
 								</span>
 							</>
-						) : (
-							<span> درحال بارگیری اطلاعات...</span>
 						)}
 					</Text>
 				</Box>
@@ -122,7 +112,7 @@ const Wallet = () => {
 						padding="8px 15px 16px"
 						border="0.5px solid #DD8114"
 						borderRadius="16px"
-						onClick={() => setInputValue("۲۰۰۰۰۰")}
+						onClick={() => setInputValue(200000)}
 						style={{ cursor: "pointer" }}
 					>
 						<div style={coinStyle}></div>
@@ -143,7 +133,7 @@ const Wallet = () => {
 						padding="8px 15px 16px"
 						border="0.5px solid #6F8595"
 						borderRadius="16px"
-						onClick={() => setInputValue("۱۰۰۰۰۰")}
+						onClick={() => setInputValue(100000)}
 						style={{ cursor: "pointer" }}
 					>
 						<div style={coinStyle}></div>
@@ -164,7 +154,7 @@ const Wallet = () => {
 						padding="8px 15px 16px"
 						border="0.5px solid #7E4200"
 						borderRadius="16px"
-						onClick={() => setInputValue("۵۰۰۰۰")}
+						onClick={() => setInputValue(50000)}
 						style={{ cursor: "pointer" }}
 					>
 						<div style={coinStyle}></div>
@@ -183,72 +173,65 @@ const Wallet = () => {
 				<Text fontSize="16px" fontWeight="500" marginBottom="16px">
 					یا به صورت دستی وارد کنید:
 				</Text>
-
-				<Formik
-					initialValues={{
-						amount: "",
-					}}
-					validationSchema={Yup.object({
-						amount: Yup.number()
-							.required("Amount is required")
-							.min(10000, "Amount must be at least 10000")
-							.max(2000000, "Amount must be at most 2000000"),
-					})}
-					onSubmit={(values, { setSubmitting }) => {
-						const amount = parseInt(
-							persianToEnglish(inputValue),
-							10
-						);
-						console.log(isLoading);
-						mutate({
-							amount: amount,
-						});
-						setSubmitting(false);
-					}}
-				>
-					{(formik) => (
-						<Box
-							display="flex"
-							justifyContent="flex-start"
-							gap="16px"
-							alignItems="center"
+				<Flex flexDir="column" gap="10px">
+					<Box
+						display="flex"
+						justifyContent="flex-start"
+						gap="16px"
+						alignItems="center"
+					>
+						<InputGroup
+							border="0.5px solid #C8C8C8"
+							borderRadius="16px"
+							width="376px"
+							height="41px"
 						>
-							<InputGroup
-								border="0.5px solid #C8C8C8"
-								borderRadius="16px"
-								width="376px"
+							<Input
+								name="amount"
+								border="none"
+								type="number"
+								value={inputValue}
+								onChange={(e) => {
+									setInputValue(e.target.value);
+									if (
+										+e.target.value < 50000 ||
+										+e.target.value > 200000
+									) {
+										setError(true);
+									} else {
+										setError(false);
+									}
+								}}
+								width="100%"
 								height="41px"
-							>
-								<Input
-									name="amount"
-									border="none"
-									type="number"
-									onKeyPress={handleKeyPress}
-									value={inputValue}
-									onChange={handleInputChange}
-									width="100%"
-									height="41px"
-									borderRadius="16px"
-									padding="0px 20px"
-								></Input>
-								<InputRightElement>
-									<Text fontSize="md" mr={-20}>
-										تومان
-									</Text>
-								</InputRightElement>
-							</InputGroup>
-							<Button
-								type="submit"
-								borderRadius="12px"
-								bg="#575DFB"
-								width="198px"
-								padding="8px"
-							>
-								خرید
-							</Button>
-						</Box>
+								borderRadius="16px"
+								padding="0px 20px"
+							/>
+							<InputRightElement>
+								<Text fontSize="md" mr={-20}>
+									تومان
+								</Text>
+							</InputRightElement>
+						</InputGroup>
+						<Button
+							onClick={(e) => submitHandler(e)}
+							type="submit"
+							borderRadius="12px"
+							bg="#575DFB"
+							width="198px"
+							padding="8px"
+							_hover={{ background: "#575DFB" }}
+						>
+							خرید
+						</Button>
+					</Box>
+					{error && (
+						<p className="text-error text-[12px]">
+							مبلغ وارد شده باید بیشتر از 50000 و کمتر از 200000
+							تومان باشد.
+						</p>
 					)}
-				</Formik>
+				</Flex>
 			</Sidebar>
 		</div>
 	);
