@@ -76,10 +76,7 @@ const UserProfile = () => {
 	const router = useRouter();
 	const pageName = router.pathname;
 
-	// const { email, username } = useUserProfile();
-
-	const { data } = useUserProfile();
-	const { email = "email@example.com", username = "sara" } = data || {};
+	const { email, username } = useUserProfile();
 
 	const { mutate, isLoading, error } = useUserProfile();
 
