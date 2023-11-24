@@ -18,6 +18,10 @@ const AppQueryClientProvider = ({ children }) => {
         onError(err) {
           // console.log(err.response.data.result.error_message)
           showToast(err.response.data.result.error_message)
+          if (err.response.status === 401 || err.response.status === 403) {
+					  token ? Cookies.remove("token") : "";
+					  push("/login");
+					}
         },
       },
     },
