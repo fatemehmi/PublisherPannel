@@ -350,6 +350,29 @@ const UserProfile = () => {
 											)}
 											{validatePass(
 												formik.values.newpassword
+											)[3].value ? (
+												<li
+													style={{
+														liStyle,
+														color: liValid,
+													}}
+												>
+													شامل حروف انگلیسی بزرگ و
+													کوچک باشد.
+												</li>
+											) : (
+												<li
+													style={{
+														liStyle,
+														color: liInvalid,
+													}}
+												>
+													شامل حروف انگلیسی بزرگ و
+													کوچک باشد.
+												</li>
+											)}
+											{validatePass(
+												formik.values.newpassword
 											)[1].value ? (
 												<li
 													style={{
@@ -357,8 +380,7 @@ const UserProfile = () => {
 														color: liValid,
 													}}
 												>
-													شامل حروف انگلیسی بزرگ و
-													کوچک باشد.
+													حداقل شامل یک عدد باشد.
 												</li>
 											) : (
 												<li
@@ -367,34 +389,12 @@ const UserProfile = () => {
 														color: liInvalid,
 													}}
 												>
-													شامل حروف انگلیسی بزرگ و
-													کوچک باشد.
+													حداقل شامل یک عدد باشد.
 												</li>
 											)}
 											{validatePass(
 												formik.values.newpassword
 											)[2].value ? (
-												<li
-													style={{
-														liStyle,
-														color: liValid,
-													}}
-												>
-													حداقل شامل یک عدد باشد.
-												</li>
-											) : (
-												<li
-													style={{
-														liStyle,
-														color: liInvalid,
-													}}
-												>
-													حداقل شامل یک عدد باشد.
-												</li>
-											)}
-											{validatePass(
-												formik.values.newpassword
-											)[3].value ? (
 												<li
 													style={{
 														liStyle,
