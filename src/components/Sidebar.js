@@ -35,7 +35,7 @@ const headingStyle = {
 };
 
 const Sidebar = (props) => {
-	const [input, setInput] = useState("ن");
+	const [input, setInput] = useState("");
 	const { pageName } = props;
 	const adjustedPageName = pageName.substring(1);
 
@@ -167,8 +167,8 @@ const Sidebar = (props) => {
 				</Box>
 
 				{!(adjustedPageName === "userProfile") &&
-					!(adjustedPageName === "wallet") &&
-					!(adjustedPageName === "traactionHistory") && (
+					!(adjustedPageName === "transactionHistory") &&
+					!(adjustedPageName === "wallet") && (
 						<Input
 							onChange={(e) => setInput(e.target.value)}
 							placeholder="جست‌و‌جو در خواسته‌ها..."
