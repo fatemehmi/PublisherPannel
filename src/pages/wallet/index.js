@@ -8,10 +8,11 @@ import {
 	InputRightElement,
 	Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useChargeWallet from "@/react-query/hooks/useChargeWallet";
 import useGetWalletInfo from "@/react-query/hooks/useGetWalletInfo";
+import useShowToast from "@/components/ui/useShowToast";
 const coinStyle = {
 	height: "110px",
 	width: "165px",
@@ -21,10 +22,24 @@ const coinStyle = {
 };
 
 const Wallet = () => {
-	const { data, isLoading: walletInfoIsLoading } = useGetWalletInfo();
+	const {
+		data,
+		isLoading: walletInfoIsLoading,
+		isSuccess,
+	} = useGetWalletInfo();
 	const [inputValue, setInputValue] = useState();
 	const [error, setError] = useState(false);
 	const { mutate, isLoading } = useChargeWallet(inputValue);
+	const showToast = useShowToast("success");
+	const router = useRouter();
+	const pageName = router.pathname;
+
+	useEffect(() => {
+		if (router.query.Status && router.query.Status === "OK") {
+			showToast("شارژ کیف پول شما با موفقیت انجام شد");
+			router.replace("/wallet");
+		}
+	});
 
 	const currentAmount = ""; // this will be change. it is for test only
 
@@ -56,9 +71,6 @@ const Wallet = () => {
 	//     }
 	//   };
 
-	const router = useRouter();
-	const pageName = router.pathname;
-
 	const submitHandler = (e) => {
 		e.preventDefault();
 		mutate();
@@ -75,7 +87,7 @@ const Wallet = () => {
 						{walletInfoIsLoading && (
 							<span> درحال بارگیری اطلاعات...</span>
 						)}
-						{!walletInfoIsLoading && (
+						{isSuccess && (
 							<>
 								<span style={{ fontSize: "32px" }}>
 									&nbsp;{data.data}
