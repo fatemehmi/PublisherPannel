@@ -4,11 +4,11 @@ import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 import Cookies from "js-cookie";
 
-const useTransaction = () => {
+const useTransaction = (page) => {
 	const showToast = useShowToast();
 	const token = Cookies.get("token");
 	return useQuery({
-		queryKey: ["transactionHistory"],
+		queryKey: ["transactionHistory", page],
 		queryFn: () =>
 			axios
 				.get(
