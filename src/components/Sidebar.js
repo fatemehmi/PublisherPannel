@@ -1,3 +1,4 @@
+import useUserProfile from "@/react-query/hooks/useUserProfile";
 import {
 	Avatar,
 	Box,
@@ -13,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 const listItemStyle = {
 	fontSize: "16px",
@@ -38,6 +40,22 @@ const Sidebar = (props) => {
 	const [input, setInput] = useState("");
 	const { pageName } = props;
 	const adjustedPageName = pageName.substring(1);
+	const { data, isLoading, isSuccess } = useUserProfile();
+	const [activeLink, setActiveLink] = useState("");
+
+	useEffect(() => {
+		const links = [
+			"userProfile",
+			"bookmarks",
+			"books",
+			"transactionHistory",
+		];
+		const updatedLink = links.find((link) => `/${link}` === activeLink);
+
+		if (updatedLink) {
+			setActiveLink(updatedLink);
+		}
+	}, [activeLink]);
 
 	return (
 		<div
@@ -65,21 +83,29 @@ const Sidebar = (props) => {
 					alignItems="center"
 					padding="2px 0px 0px"
 				>
-					<Avatar width="70px" height="70px" name="Sara Karimi" />
+					<Avatar
+						width="70px"
+						height="70px"
+						name={isSuccess && data.data.username}
+					/>
 					<Box
 						display="flex"
 						flexDir="column"
 						justifyContent="center"
 						alignItems="center"
 					>
-						<Heading style={headingStyle}>sara karimi</Heading>
+						<Heading style={headingStyle}>
+							{isLoading && ""}
+							{isSuccess && data.data.username}
+						</Heading>
 						<Text
 							fontSize="12px"
 							fontStyle="normal"
 							fontWeight="200"
 							marginBottom="3px"
 						>
-							sara@gmail.com
+							{isLoading && ""}
+							{isSuccess && data.data.email}
 						</Text>
 					</Box>
 				</CardHeader>
@@ -113,19 +139,53 @@ const Sidebar = (props) => {
 					paddingRight="20px"
 				>
 					<Link
-						style={listItemStyle}
+						style={{
+							...listItemStyle,
+							color:
+								activeLink === "userProfile"
+									? "#575DFB"
+									: "black",
+						}}
 						className="font-SemiBold"
-						href="#"
+						href="userProfile"
+						onClick={() => setActiveLink("/userProfile")}
 					>
 						<Icon></Icon> &nbsp; اطلاعات کاربری
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color:
+								activeLink === "bookmarks"
+									? "#575DFB"
+									: "black",
+						}}
+						href="bookmarks"
+						onClick={() => setActiveLink("/bookmarks")}
+					>
 						<Icon></Icon> &nbsp; کتابخانه من
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color: activeLink === "books" ? "#575DFB" : "black",
+						}}
+						href="books"
+						onClick={() => setActiveLink("/books")}
+					>
 						<Icon></Icon> &nbsp; فهرست خواسته‌ها
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color:
+								activeLink === "transactionHistory"
+									? "#575DFB"
+									: "black",
+						}}
+						href="transactionHistory"
+						onClick={() => setActiveLink("/transactionHistory")}
+					>
 						<Icon></Icon> &nbsp; تاریخچه تراکنش‌ها
 					</Link>
 				</CardFooter>
@@ -144,21 +204,21 @@ const Sidebar = (props) => {
 				fontWeight="500"
 				lineHeight="normal"
 				fontSize="20px"
-				margin="-473px 330px auto auto"
+				margin="-423px 330px auto auto"
 			>
 				<Box>
 					<Icon></Icon> &nbsp;
 					{(() => {
 						switch (adjustedPageName) {
-							case "userProfile":
+							case "user/userProfile":
 								return "اطلاعات کاربری";
-							case "wallet":
+							case "user/wallet":
 								return "کیف پول من";
-							case "transactionHistory":
+							case "user/transactionHistory":
 								return "تاریخچه تراکنش‌ها";
-							case "favoriteBooks":
+							case "user/bookmarks":
 								return "فهرست علاقه‌مندی‌ها";
-							case "myBooks/Booklist":
+							case "user/books":
 								return "کتابخانه من";
 							default:
 								return "";
@@ -166,9 +226,9 @@ const Sidebar = (props) => {
 					})()}
 				</Box>
 
-				{!(adjustedPageName === "userProfile") &&
-					!(adjustedPageName === "transactionHistory") &&
-					!(adjustedPageName === "wallet") && (
+				{!(adjustedPageName === "user/userProfile") &&
+					!(adjustedPageName === "user/transactionHistory") &&
+					!(adjustedPageName === "user/wallet") && (
 						<Input
 							onChange={(e) => setInput(e.target.value)}
 							placeholder="جست‌و‌جو در خواسته‌ها..."
