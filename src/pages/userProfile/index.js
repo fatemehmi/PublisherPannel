@@ -12,10 +12,11 @@ import {
 	Text,
 	Textarea,
 } from "@chakra-ui/react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import validatePass from "@/helpers/validatePass";
+import useChangePass from "@/react-query/hooks/useChangePass";
 
 const headerStyle = {
 	fontSize: "20px",
@@ -78,10 +79,8 @@ const liInvalid = "gray";
 const UserProfile = () => {
 	const router = useRouter();
 	const pageName = router.pathname;
-
-	const { email, username } = useUserProfile();
-
-	const { mutate, isLoading, error } = useUserProfile();
+	const { data, isLoading, isSuccess } = useUserProfile();
+	const { mutate, error } = useChangePass();
 
 	return (
 		<div>
@@ -106,7 +105,8 @@ const UserProfile = () => {
 								alignItems="center"
 								borderRadius="16px"
 							>
-								{username}
+								{isLoading && ""}
+								{isSuccess && data.data.username}
 							</Text>
 						</div>
 						<div>
@@ -123,7 +123,8 @@ const UserProfile = () => {
 								alignItems="center"
 								borderRadius="16px"
 							>
-								{email}
+								{isLoading && ""}
+								{isSuccess && data.data.email}
 							</Text>
 						</div>
 					</Box>
@@ -175,7 +176,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											رمز عبور فعلی
 										</h2>
-										<Field
+										<Input
 											type="password"
 											name="oldpass"
 											style={{
@@ -213,7 +214,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											رمز عبور جدید
 										</h2>
-										<Field
+										<Input
 											type="password"
 											name="newpassword"
 											style={{
@@ -253,7 +254,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											تکرار رمز عبور جدید
 										</h2>
-										<Field
+										<Input
 											type="password"
 											name="passwordConf"
 											style={{
@@ -297,10 +298,14 @@ const UserProfile = () => {
 											type="submit"
 											color="white"
 											style={buttonStyle}
-											isDisabled={
+											disabled={
+												!validatePass(
+													formik.values.oldpass
+												).every((el) => el.value) &&
 												!validatePass(
 													formik.values.newpassword
-												).every((el) => el.value)
+												).every((el) => el.value) &&
+												!formik.isValid
 											}
 										>
 											تغییر رمز
