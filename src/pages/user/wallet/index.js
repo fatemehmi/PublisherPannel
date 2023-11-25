@@ -50,11 +50,11 @@ const Wallet = () => {
 					refetch()
 				}
 			}).catch(err=>console.log(err))
-			router.replace("/wallet");
+			router.replace("/user/wallet");
 		}
 		if (router.query.Status && router.query.Status === "NOK") {
 			showToast("مشکلی در شارژ کیف پول بوجود آمده،لطفا دوباره تلاش کنید",);
-			router.replace("/wallet");
+			router.replace("/user/wallet");
 		}
 	},[router ,showToast ,token]);
 
