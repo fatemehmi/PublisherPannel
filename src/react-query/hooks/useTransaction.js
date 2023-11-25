@@ -3,10 +3,12 @@ import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const useTransaction = (page) => {
 	const showToast = useShowToast();
 	const token = Cookies.get("token");
+	const{push}=useRouter()
 	return useQuery({
 		queryKey: ["transactionHistory", page],
 		queryFn: () =>
@@ -24,7 +26,7 @@ const useTransaction = (page) => {
 						err.response.status === 401 ||
 						err.response.status === 403
 					) {
-						token ? Cookies.delete("token") : "";
+						token ? Cookies.remove("token") : "";
 						push("/login");
 					}
 				}),

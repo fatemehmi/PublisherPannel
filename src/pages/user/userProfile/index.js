@@ -298,14 +298,10 @@ const UserProfile = () => {
 											type="submit"
 											color="white"
 											style={buttonStyle}
-											disabled={
-												!validatePass(
-													formik.values.oldpass
-												).every((el) => el.value) &&
+											isDisabled={
 												!validatePass(
 													formik.values.newpassword
-												).every((el) => el.value) &&
-												!formik.isValid
+												).every((el) => el.value)
 											}
 										>
 											تغییر رمز

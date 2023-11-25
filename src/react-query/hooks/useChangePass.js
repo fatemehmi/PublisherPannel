@@ -10,9 +10,6 @@ const useChangePass = () => {
 		onSuccess: (data) => {
 			console.log(data.data);
 		},
-		onError: (error) => {
-			console.error("Error:", error);
-		},
 	});
 };
 

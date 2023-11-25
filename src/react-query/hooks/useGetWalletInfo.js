@@ -23,7 +23,7 @@ const useGetWalletInfo = () => {
 						err.response.status === 401 ||
 						err.response.status === 403
 					) {
-						token ? Cookies.delete("token") : "";
+						token ? Cookies.remove("token") : "";
 						push("/login");
 					}
 				}),

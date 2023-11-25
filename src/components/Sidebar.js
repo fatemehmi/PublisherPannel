@@ -1,3 +1,4 @@
+import useUserProfile from "@/react-query/hooks/useUserProfile";
 import {
 	Avatar,
 	Box,
@@ -38,6 +39,7 @@ const Sidebar = (props) => {
 	const [input, setInput] = useState("");
 	const { pageName } = props;
 	const adjustedPageName = pageName.substring(1);
+	const { data, isLoading, isSuccess } = useUserProfile();
 
 	return (
 		<div
@@ -65,21 +67,29 @@ const Sidebar = (props) => {
 					alignItems="center"
 					padding="2px 0px 0px"
 				>
-					<Avatar width="70px" height="70px" name="Sara Karimi" />
+					<Avatar
+						width="70px"
+						height="70px"
+						name={isSuccess && data.data.username}
+					/>
 					<Box
 						display="flex"
 						flexDir="column"
 						justifyContent="center"
 						alignItems="center"
 					>
-						<Heading style={headingStyle}>sara karimi</Heading>
+						<Heading style={headingStyle}>
+							{isLoading && ""}
+							{isSuccess && data.data.username}
+						</Heading>
 						<Text
 							fontSize="12px"
 							fontStyle="normal"
 							fontWeight="200"
 							marginBottom="3px"
 						>
-							sara@gmail.com
+							{isLoading && ""}
+							{isSuccess && data.data.email}
 						</Text>
 					</Box>
 				</CardHeader>
@@ -98,7 +108,18 @@ const Sidebar = (props) => {
 					paddingBottom="16px"
 				>
 					<Box>
-						<Icon></Icon> &nbsp; کیف پول من
+						<Link
+							style={{
+								color:
+									adjustedPageName === "user/wallet"
+										? "#575DFB"
+										: "black",
+							}}
+							className="font-SemiBold"
+							href="wallet"
+						>
+							<Icon></Icon> &nbsp; کیف پول من
+						</Link>
 					</Box>
 				</CardBody>
 				<Divider style={dividerStyle} />
@@ -113,19 +134,52 @@ const Sidebar = (props) => {
 					paddingRight="20px"
 				>
 					<Link
-						style={listItemStyle}
+						style={{
+							...listItemStyle,
+							color:
+								adjustedPageName === "user/userProfile"
+									? "#575DFB"
+									: "black",
+						}}
 						className="font-SemiBold"
-						href="#"
+						href="userProfile"
 					>
 						<Icon></Icon> &nbsp; اطلاعات کاربری
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color:
+								adjustedPageName === "ookmarks"
+									? "#575DFB"
+									: "black",
+						}}
+						href="bookmarks"
+					>
 						<Icon></Icon> &nbsp; کتابخانه من
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color:
+								adjustedPageName === "ooks"
+									? "#575DFB"
+									: "black",
+						}}
+						href="books"
+					>
 						<Icon></Icon> &nbsp; فهرست خواسته‌ها
 					</Link>
-					<Link style={listItemStyle} href="#">
+					<Link
+						style={{
+							...listItemStyle,
+							color:
+								adjustedPageName === "user/transactionHistory"
+									? "#575DFB"
+									: "black",
+						}}
+						href="transactionHistory"
+					>
 						<Icon></Icon> &nbsp; تاریخچه تراکنش‌ها
 					</Link>
 				</CardFooter>
@@ -144,21 +198,21 @@ const Sidebar = (props) => {
 				fontWeight="500"
 				lineHeight="normal"
 				fontSize="20px"
-				margin="-473px 330px auto auto"
+				margin="-423px 330px auto auto"
 			>
 				<Box>
 					<Icon></Icon> &nbsp;
 					{(() => {
 						switch (adjustedPageName) {
-							case "userProfile":
+							case "user/userProfile":
 								return "اطلاعات کاربری";
-							case "wallet":
+							case "user/wallet":
 								return "کیف پول من";
-							case "transactionHistory":
+							case "user/transactionHistory":
 								return "تاریخچه تراکنش‌ها";
-							case "favoriteBooks":
+							case "ookmarks":
 								return "فهرست علاقه‌مندی‌ها";
-							case "myBooks/Booklist":
+							case "ooks":
 								return "کتابخانه من";
 							default:
 								return "";
@@ -166,9 +220,9 @@ const Sidebar = (props) => {
 					})()}
 				</Box>
 
-				{!(adjustedPageName === "userProfile") &&
-					!(adjustedPageName === "transactionHistory") &&
-					!(adjustedPageName === "wallet") && (
+				{!(adjustedPageName === "user/userProfile") &&
+					!(adjustedPageName === "user/transactionHistory") &&
+					!(adjustedPageName === "user/wallet") && (
 						<Input
 							onChange={(e) => setInput(e.target.value)}
 							placeholder="جست‌و‌جو در خواسته‌ها..."

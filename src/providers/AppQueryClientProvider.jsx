@@ -6,7 +6,8 @@ import useShowToast from "@/components/ui/useShowToast";
 const AppQueryClientProvider = ({ children }) => {
   
   const showToast=useShowToast();
-  const { reload,redirect } = useRouter();
+  const { push } = useRouter();
+  const token=Cookies.get("token")
   const queryClient = new QueryClient({
     defaultOptions: {
       queries:{
@@ -16,7 +17,7 @@ const AppQueryClientProvider = ({ children }) => {
 
       mutations: {
         onError(err) {
-          // console.log(err.response.data.result.error_message)
+          console.log(err)
           showToast(err.response.data.result.error_message)
           if (err.response.status === 401 || err.response.status === 403) {
 					  token ? Cookies.remove("token") : "";
