@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useEffect } from "react";
 
 const listItemStyle = {
 	fontSize: "16px",
@@ -41,21 +40,6 @@ const Sidebar = (props) => {
 	const { pageName } = props;
 	const adjustedPageName = pageName.substring(1);
 	const { data, isLoading, isSuccess } = useUserProfile();
-	const [activeLink, setActiveLink] = useState("");
-
-	useEffect(() => {
-		const links = [
-			"userProfile",
-			"bookmarks",
-			"books",
-			"transactionHistory",
-		];
-		const updatedLink = links.find((link) => `/${link}` === activeLink);
-
-		if (updatedLink) {
-			setActiveLink(updatedLink);
-		}
-	}, [activeLink]);
 
 	return (
 		<div
@@ -124,7 +108,18 @@ const Sidebar = (props) => {
 					paddingBottom="16px"
 				>
 					<Box>
-						<Icon></Icon> &nbsp; کیف پول من
+						<Link
+							style={{
+								color:
+									adjustedPageName === "user/wallet"
+										? "#575DFB"
+										: "black",
+							}}
+							className="font-SemiBold"
+							href="wallet"
+						>
+							<Icon></Icon> &nbsp; کیف پول من
+						</Link>
 					</Box>
 				</CardBody>
 				<Divider style={dividerStyle} />
@@ -142,13 +137,12 @@ const Sidebar = (props) => {
 						style={{
 							...listItemStyle,
 							color:
-								activeLink === "userProfile"
+								adjustedPageName === "user/userProfile"
 									? "#575DFB"
 									: "black",
 						}}
 						className="font-SemiBold"
 						href="userProfile"
-						onClick={() => setActiveLink("/userProfile")}
 					>
 						<Icon></Icon> &nbsp; اطلاعات کاربری
 					</Link>
@@ -156,22 +150,23 @@ const Sidebar = (props) => {
 						style={{
 							...listItemStyle,
 							color:
-								activeLink === "bookmarks"
+								adjustedPageName === "ookmarks"
 									? "#575DFB"
 									: "black",
 						}}
 						href="bookmarks"
-						onClick={() => setActiveLink("/bookmarks")}
 					>
 						<Icon></Icon> &nbsp; کتابخانه من
 					</Link>
 					<Link
 						style={{
 							...listItemStyle,
-							color: activeLink === "books" ? "#575DFB" : "black",
+							color:
+								adjustedPageName === "ooks"
+									? "#575DFB"
+									: "black",
 						}}
 						href="books"
-						onClick={() => setActiveLink("/books")}
 					>
 						<Icon></Icon> &nbsp; فهرست خواسته‌ها
 					</Link>
@@ -179,12 +174,11 @@ const Sidebar = (props) => {
 						style={{
 							...listItemStyle,
 							color:
-								activeLink === "transactionHistory"
+								adjustedPageName === "user/transactionHistory"
 									? "#575DFB"
 									: "black",
 						}}
 						href="transactionHistory"
-						onClick={() => setActiveLink("/transactionHistory")}
 					>
 						<Icon></Icon> &nbsp; تاریخچه تراکنش‌ها
 					</Link>
@@ -216,9 +210,9 @@ const Sidebar = (props) => {
 								return "کیف پول من";
 							case "user/transactionHistory":
 								return "تاریخچه تراکنش‌ها";
-							case "user/bookmarks":
+							case "ookmarks":
 								return "فهرست علاقه‌مندی‌ها";
-							case "user/books":
+							case "ooks":
 								return "کتابخانه من";
 							default:
 								return "";

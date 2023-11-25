@@ -15,7 +15,7 @@ const TransactionHistory = () => {
 		const totalPages = data.data.count;
 
 		pageButtons = Array.from(
-			{ length: Math.min(4, totalPages) },
+			{ length: Math.min(totalPages) },
 			(_, index) => index + 1
 		);
 	}
