@@ -5,6 +5,9 @@ import filterBooks from "@/helpers/filterBooks";
 
 function BooksList(props) {
   const filteredBooks = filterBooks(props.searchValue, props.booksArray);
+  if(filteredBooks.length===0){
+    return<p>کتابی یافت نشد.</p>
+  }
   return (
     <Flex
     flexDir="column"
