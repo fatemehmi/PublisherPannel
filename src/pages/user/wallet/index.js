@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import useChargeWallet from "@/react-query/hooks/useChargeWallet";
 import useGetWalletInfo from "@/react-query/hooks/useGetWalletInfo";
 import useShowToast from "@/components/ui/useShowToast";
+import axios from "axios";
+import Cookies from "js-cookie";
 const coinStyle = {
 	height: "110px",
 	width: "165px",
@@ -22,24 +24,39 @@ const coinStyle = {
 };
 
 const Wallet = () => {
+	console.log("reload")
 	const {
 		data,
 		isLoading: walletInfoIsLoading,
 		isSuccess,
+		refetch
 	} = useGetWalletInfo();
 	const [inputValue, setInputValue] = useState();
 	const [error, setError] = useState(false);
 	const { mutate, isLoading } = useChargeWallet(inputValue);
-	const showToast = useShowToast("success");
+	const showToast = useShowToast();
 	const router = useRouter();
 	const pageName = router.pathname;
+	const token = Cookies.get("token");
+	console.log(router.query.Status)
 
 	useEffect(() => {
 		if (router.query.Status && router.query.Status === "OK") {
-			showToast("شارژ کیف پول شما با موفقیت انجام شد");
+			showToast("شارژ کیف پول شما با موفقیت انجام شد","success");
+			axios.put(`http://Localhost:5000/api/user/wallet/UpdateUserWallet${localStorage.getItem("id")}`,{},{headers: {
+				Authorization: "Bearer " + token,
+			},}).then(res=>{
+				if(res.status===200){
+					refetch()
+				}
+			}).catch(err=>console.log(err))
 			router.replace("/wallet");
 		}
-	});
+		if (router.query.Status && router.query.Status === "NOK") {
+			showToast("مشکلی در شارژ کیف پول بوجود آمده،لطفا دوباره تلاش کنید",);
+			router.replace("/wallet");
+		}
+	},[router ,showToast ,token]);
 
 	const currentAmount = ""; // this will be change. it is for test only
 

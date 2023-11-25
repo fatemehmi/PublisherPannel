@@ -7,8 +7,6 @@ import Cookies from "js-cookie";
 const useChargeWallet = (data) => {
 	const router = useRouter();
 	const token = Cookies.get("token");
-	console.log(data);
-
 	return useMutation({
 		mutationFn: () =>
 			axios
@@ -25,6 +23,9 @@ const useChargeWallet = (data) => {
 
 		onSuccess: (data) => {
 			const paymentUrl = data.data;
+			const parsedUrl = new URL(paymentUrl);
+			const id=parsedUrl.search
+			localStorage.setItem("id",id)
 			router.push(paymentUrl);
 		},
 	});
