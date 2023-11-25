@@ -20,7 +20,7 @@ const useGetMyBooks = () => {
         .catch((err) => {
           showToast(err.response.data.result.error_message);
           if (err.response.status === 401 || err.response.status === 403) {
-            token ? Cookies.delete("token") : "";
+            token ? Cookies.remove("token") : "";
             push("/login");
           }
         }),

@@ -1,11 +1,11 @@
 import { useToast } from "@chakra-ui/react";
 
 
-function useShowToast() {
+function useShowToast(status="error") {
     const toast = useToast({
         isClosable: true,
           position: 'top-right',
-          status: 'error',
+          status: status,
           duration:5000
       });
       const toastId = "toast-id";
