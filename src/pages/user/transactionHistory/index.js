@@ -1,5 +1,5 @@
 import Sidebar from "@/components/Sidebar";
-import { Box, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Center, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
@@ -12,6 +12,7 @@ const TransactionHistory = () => {
 	let pageButtons;
 
 	if (isSuccess) {
+
 		const totalPages = data.data.count;
 
 		pageButtons = Array.from(
@@ -87,7 +88,7 @@ const TransactionHistory = () => {
 								<Tr key={index}>
 									<Td style={tableDataStyle}>{row.amount}</Td>
 									<Td style={tableDataStyle}>
-										{row.createddate}
+										{new Date(row.createddate).toLocaleDateString('fa-IR')}
 									</Td>
 									<Td
 										style={{
@@ -106,16 +107,14 @@ const TransactionHistory = () => {
 								</Tr>
 							))}
 						</Tbody>
-						<Tfoot className="flex justify-center items-center">
+					</Table>
+						<Center marginTop="30px">
 							<Box
 								dir="ltr"
 								display="flex"
 								justifyContent="center"
 								alignItems="center"
 								gap="16px"
-								position="relative"
-								bottom="-15px"
-								right="140%"
 							>
 								<button
 									style={{
@@ -173,8 +172,7 @@ const TransactionHistory = () => {
 									/>
 								</button>
 							</Box>
-						</Tfoot>
-					</Table>
+							</Center>				
 				</div>
 			</Sidebar>
 		);
