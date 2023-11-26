@@ -93,7 +93,7 @@ const TransactionHistory = () => {
 										style={{
 											tableDataStyle,
 											color:
-												row.actiontype === "برداشت"
+												row.actiontype === "واریز"
 													? "#20AA25"
 													: "#D62737",
 										}}
