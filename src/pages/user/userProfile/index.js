@@ -12,7 +12,7 @@ import {
 	Text,
 	Textarea,
 } from "@chakra-ui/react";
-import { ErrorMessage, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import validatePass from "@/helpers/validatePass";
@@ -214,7 +214,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											رمز عبور جدید
 										</h2>
-										<Input
+										<Field
 											type="password"
 											name="newpassword"
 											style={{
@@ -254,7 +254,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											تکرار رمز عبور جدید
 										</h2>
-										<Input
+										<Field
 											type="password"
 											name="passwordConf"
 											style={{
