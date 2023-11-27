@@ -176,7 +176,7 @@ const UserProfile = () => {
 										<h2 style={labelStyle}>
 											رمز عبور فعلی
 										</h2>
-										<Input
+										<Field
 											type="password"
 											name="oldpass"
 											style={{
@@ -194,7 +194,9 @@ const UserProfile = () => {
 														: "#C8C8C8"
 												}`,
 											}}
-											defaultValue={formik.values.oldpass}
+											defaultValue={
+												formik.values.oldpass
+											}
 											isInvalid={
 												formik.errors.oldpass &&
 												formik.touched.oldpass
