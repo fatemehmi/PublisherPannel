@@ -4,7 +4,6 @@ import {
   Image,
   Stack,
   Heading,
-  Box,
   HStack,
   VStack,
   Center,
@@ -28,7 +27,7 @@ function BookCard(props) {
             justifyContent="space-between"
             gap="24px"
           >
-            <Link href={`books/${props.id}`}>
+            <Link href={`/books/${props.id}`}>
               <Image
                 src={props.bookcoverimage}
                 width="214px"

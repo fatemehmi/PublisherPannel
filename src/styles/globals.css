@@ -133,3 +133,21 @@ input:-webkit-autofill:active {
 *[disabled]{
   opacity:1 !important
 }
+
+.css-1wh2kri{
+  margin-inline-end: 0 !important;
+}
+
+.css-136icu1 {
+  min-width: 0 !important; 
+  -webkit-padding-start: 0 !important;
+  padding-inline-start: 0 !important;
+  -webkit-padding-end: 0 !important;
+  padding-inline-end: 0 !important;
+  
+}
+
+*[data-checked]{
+  background: none !important;
+    border-color: none !important;
+}
