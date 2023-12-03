@@ -15,4 +15,5 @@ export const API_ENDPOINTS = {
   WALLET_HISTORY: "/api/user/wallet-history",
   BALANCE: "/api/user/wallet-balance",
   CHANGE_PASS: "/api/user/change-password",
+  ADD_TO_BOOKMARKS:"/api/user/bookmarks"
 };

@@ -1,45 +1,93 @@
 import React from "react";
 import CustomCardContainer from "../ui/bookDetail/CustomCardContainer";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { useState } from "react";
-function BookDescription() {
-    const [isReadMore, setIsReadMore] = useState(true);
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore);
-    };
+import { Tabs, TabList, TabPanels, Tab, TabPanel, HStack } from "@chakra-ui/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Heading,
+  Stack,
+  Box,
+  Text,
+  StackDivider,
+} from "@chakra-ui/react";
+function BookDescription(props) {
   return (
-    <CustomCardContainer pt="30px">
+    <CustomCardContainer pt="30px" pr="20px" pl="20px">
       <div>
-        <Tabs>
+        <Tabs >
           <TabList>
-            <Tab>درباره دایی جان ناپلئون</Tab>
-            <Tab>مشخصات</Tab>
-            <Tab>فهرست</Tab>
+            <Tab fontWeight="medium" fontSize="17px">
+              درباره {props.data.bookname}
+            </Tab>
+            <Tab fontWeight="medium" fontSize="17px" >
+              مشخصات
+            </Tab>
           </TabList>
 
           <TabPanels>
             <TabPanel dir="rtl">
-              <p className="leading-10">
-                طنزنویسی در ادبیات ایران سابقه‌ای دیرینه‌ دارد. از زمانی که
-                «عبید زاکانی» منظومه «موش و گربه» را سرود تا امروز، آثار طنز
-                ماندگاری در ادبیات فارسی نوشته شده است. تعداد زیادی از این آثار
-                طنز از سلاح قلم برای بیان ضعف‌های جامعه استفاده کرده‌اند و این
-                شیوه‌ی نقد اجتماعی از ادبیات کلاسیک به ادبیات معاصر هم رسیده
-                است. دایی جان ناپلئون به قلم ایرج پزشکزاد منحصربه‌فردترین داستان
-                معاصر فارسی است که با زبانی طنز مردم و آداب و رسوم عامیانه‌ی
-                جامعه‌ی دهه‌ی چهل ایران را نقد کرده است. دایی جان ناپلئون؛کتابی
-                برای همه نسل‌ها کتاب دایی جان ناپلون My Uncle Napoleon رمانی در
-                قالب طنز است که در سال 1349 چاپ شده است. این کتاب به هشت زبان
-                دنیا ترجمه شده است و ژانر کتاب تلفیقی از ژانر اجتماعی، بلوغ و
-                طنز است. رمان دایی‌ جان ناپلئون نتیجه‌ی تلفیق داستان عشق ...
-                <span onClick={toggleReadMore}>{isReadMore ? "...read more" : " show less"}</span>
+              <p className="leading-[30px] text-[16px] font-normal">
+                {props.data.description}
               </p>
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
-            </TabPanel>
-            <TabPanel>
-              <p>three!</p>
+            <TabPanel pr="0">
+              <Card border="none" boxShadow="none" >
+                <CardBody pr="0">
+                  <Stack divider={<StackDivider />} spacing="4" pr="0">
+                    <Box>
+                      <HStack gap="150px">
+                      <Heading fontFamily="Vazirmatn" color="gray.300" fontSize="16px" fontWeight="normal"  width="100px">
+                        تعداد صفحات
+                      </Heading>
+                      <Text pt="2" fontFamily="Vazirmatn" fontWeight="normal" fontSize="16px">
+                        {props.data.numberofpages}
+                      </Text>
+                      </HStack>
+                    </Box>
+                    <Box>
+                    <HStack gap="150px">
+                      <Heading fontFamily="Vazirmatn" color="gray.300" fontSize="16px" fontWeight="normal"  width="100px">
+                       نویسنده
+                      </Heading>
+                      <Text pt="2" fontFamily="Vazirmatn" fontWeight="normal" fontSize="16px">
+                        {props.data.authorname}
+                      </Text>
+                      </HStack>
+                    </Box>
+                    <Box>
+                    <HStack gap="150px">
+                      <Heading fontFamily="Vazirmatn" color="gray.300" fontSize="16px" fontWeight="normal"  width="100px">
+                        ناشر
+                      </Heading>
+                      <Text pt="2" fontFamily="Vazirmatn" fontWeight="normal" fontSize="16px">
+                        {props.data.publisher}
+                      </Text>
+                      </HStack>
+                    </Box>
+                    <Box>
+                    <HStack gap="150px">
+                      <Heading fontFamily="Vazirmatn" color="gray.300" fontSize="16px" fontWeight="normal"  width="100px">
+                        زبان
+                      </Heading>
+                      <Text pt="2" fontFamily="Vazirmatn" fontWeight="normal" fontSize="16px">
+                        {props.data.language}
+                      </Text>
+                      </HStack>
+                    </Box>
+                    <Box>
+                    <HStack gap="150px">
+                      <Heading fontFamily="Vazirmatn" color="gray.300" fontSize="16px" fontWeight="normal"  width="100px">
+                        تاریخ انتشار
+                      </Heading>
+                      <Text pt="2" fontFamily="Vazirmatn" fontWeight="normal" fontSize="16px">
+                        {props.data.releaseddate}
+                      </Text>
+                      </HStack>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
             </TabPanel>
           </TabPanels>
         </Tabs>
