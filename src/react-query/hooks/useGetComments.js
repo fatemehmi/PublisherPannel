@@ -1,21 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 
-const useGetBookInformation = (params) => {
+const useGetComments = (bookId,page) => {
   const showToast = useShowToast();
   return useQuery({
-    queryKey: ["book"],
+    queryKey: ["book-comments",page],
     queryFn: () =>
       axios
-        .get(`http://Localhost:8000/api/books/${params.bookId}`)
+        .get(`http://localhost:6002/api/book/comments/${bookId}?page=${page} `)
         .then((res) => res.data)
         .catch((err) => {
+          console.log(err)
           showToast(err.response.data.result.error_message);
         }),
-      enabled:!!params
   });
 };
 
-export default useGetBookInformation;
+export default useGetComments;

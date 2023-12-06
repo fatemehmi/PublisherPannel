@@ -3,13 +3,13 @@ import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 
-const useGetAuthorBooks = (bookId) => {
+const useGetAuthorBooks = (authorName) => {
   const showToast = useShowToast();
   return useQuery({
-    queryKey: ["book"],
+    queryKey: ["author-books"],
     queryFn: () =>
       axios
-        .get(`http://Localhost:8000/api/books/${bookId}`)
+        .get(`http://localhost:7000/api/search/books?author=${authorName}`)
         .then((res) => res.data)
         .catch((err) => {
           showToast(err.response.data.result.error_message);

@@ -1,15 +1,21 @@
-import React from 'react'
-import {VStack} from "@chakra-ui/react";
-import CommentItem from './CommentItem';
+import React from "react";
+import { VStack } from "@chakra-ui/react";
+import CommentItem from "./CommentItem";
 
-function CommentList() {
+function CommentList(props) {
+  const commentList = props.commentList;
   return (
     <VStack gap="24px" paddingY="24px" paddingX="16px">
-         <CommentItem/>
-         <CommentItem/>
-         <CommentItem/>
-        </VStack>
-  )
+      {commentList.map((comment) => (
+        <CommentItem
+          key={comment.id}
+          bookId={comment.bookid}
+          comment={comment.comment}
+          username={comment.username}
+        />
+      ))}
+    </VStack>
+  );
 }
 
-export default CommentList
+export default CommentList;
