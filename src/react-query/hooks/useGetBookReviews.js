@@ -4,6 +4,7 @@ import useShowToast from "@/components/ui/useShowToast";
 
 const useGetBookReviews = (bookId) => {
   const showToast = useShowToast();
+  console.log("review")
   return useQuery({
     queryKey: ["book-review"],
     queryFn: () =>

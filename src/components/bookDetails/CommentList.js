@@ -12,6 +12,7 @@ function CommentList(props) {
           bookId={comment.bookid}
           comment={comment.comment}
           username={comment.username}
+          createddate={comment.createddate}
         />
       ))}
     </VStack>
