@@ -8,12 +8,14 @@ import { useState } from "react";
 import useGetComments from "@/react-query/hooks/useGetComments";
 import useSendComments from "@/react-query/hooks/useSendComments";
 import useSendReview from "@/react-query/hooks/useSendReview";
+import useGetBookReviews from "@/react-query/hooks/useGetBookReviews";
 function Comment(props) {
   const textareaRef=useRef()
   const[review,setReview]=useState(0)
   console.log(review)
   const [currentPage, setCurrentPage] = useState(1);
-  const{data,isSuccess}=useGetComments(props.bookId,currentPage)
+  const{data,isSuccess,refetch}=useGetComments(props.bookId,currentPage)
+  // const{refetch:reviewRefetch}=useGetBookReviews(props.bookId)
   const{mutate}=useSendComments()
   const {mutate:sendReview}=useSendReview()
 
@@ -38,14 +40,17 @@ function Comment(props) {
     else if(textareaRef.current.value.trim().length===0){
       console.log(review)
       sendReview({id:props.bookId,value:review})
+      // reviewRefetch()
     }
     else if(review===0){
       mutate({id:props.bookId,value:textareaRef.current.value})
+      // refetch()
     }
     
     else{
       sendReview({id:props.bookId,value:review})
       mutate({id:props.bookId,value:textareaRef.current.value})
+      // refetch()
     }
   }
   if(isSuccess){

@@ -12,6 +12,7 @@ function useSendComments() {
       })},
     onSuccess: (data) => {
       console.log(data)
+      
     }
   });
 }
