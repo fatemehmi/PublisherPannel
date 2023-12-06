@@ -9,22 +9,14 @@ import {
   Image,
   Stack,
   Heading,
-  Text,
 } from "@chakra-ui/react";
 import CustomCardContainer from "../ui/bookDetail/CustomCardContainer";
 import { useState } from "react";
 import Stars from "./Stars";
 import useShowToast from "../ui/useShowToast";
 import { useDisclosure } from "@chakra-ui/react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+
+import BuyModal from "../ui/bookDetail/BuyModal";
 function BookDetail(props) {
   const [isCopied, setCopied] = useState(false);
   const offCode = "welcome";
@@ -86,31 +78,7 @@ function BookDetail(props) {
             </span>
           </HStack>
         </HStack>
-        <button
-          onClick={onOpen}
-          className="w-full h-[49px] bg-primary rounded-xl px-[44px] py-[10px] text-white text-[16px] font-medium"
-        >
-          خرید
-        </button>
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Text fontWeight="bold" mb="1rem">
-                You can scroll the content behind the modal
-              </Text>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <BuyModal />
         <button className="w-full h-[49px] rounded-xl px-[44px] py-[10px] bg-white border-[1px] border-[#C8C8C8] text-[16px] font-medium text-[#000015]">
           مشاهده نمونه
         </button>

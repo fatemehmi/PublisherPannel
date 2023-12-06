@@ -27,9 +27,9 @@ function AuthorBookItem(props) {
             justifyContent="space-between"
             gap="24px"
           >
-            <Link href={`/books/${props.id}`}>
+            <Link href={`/books/${props.bookid}`}>
               <Image
-                src="https://upload.wikimedia.org/wikipedia/fa/4/4e/81059_78299_normal.jpg"
+                src={props.bookcoverimage}
                 width="148px"
                 height="230px"
                 alt="Green double couch with wooden legs"
@@ -44,8 +44,7 @@ function AuthorBookItem(props) {
                 fontWeight="medium"
                 fontSize="24px"
               >
-                دایی جان ناپلئون
-                {/* {props.bookname} */}
+                {props.bookname}
               </Heading>
               <div>ستاره</div>
               <Stack rowGap="20px" flexGrow="1">

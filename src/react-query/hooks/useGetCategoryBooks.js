@@ -3,19 +3,18 @@ import { API_ENDPOINTS } from "@/utils/api/endpoints";
 import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 
-const useGetBookInformation = (params) => {
+const useGetCategoryBooks = (category) => {
   const showToast = useShowToast();
   return useQuery({
-    queryKey: ["book"],
+    queryKey: ["category-books"],
     queryFn: () =>
       axios
-        .get(`http://Localhost:8000/api/books/${params.bookId}`)
+        .get(`http://localhost:7000/api/search/books?category=${category}`)
         .then((res) => res.data)
         .catch((err) => {
           showToast(err.response.data.result.error_message);
         }),
-      enabled:!!params
   });
 };
 
-export default useGetBookInformation;
+export default useGetCategoryBooks;
