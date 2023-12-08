@@ -22,8 +22,9 @@ function BooksList(props) {
           authorname={book.authorname}
           price={book.price}
           language={book.language}
-          publisher={props.publisher}
+          publisher={book.publisher}
           bookcoverimage={book.bookcoverimage}
+          type={props.type}
         />
       ))}
     </Flex>

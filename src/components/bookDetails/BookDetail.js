@@ -23,7 +23,6 @@ function BookDetail(props) {
   const [isCopied, setCopied] = useState(false);
   const offCode = "welcome";
   const showToast = useShowToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   if(isSuccess&&!data.data){
     return (
       <CustomCardContainer
@@ -81,7 +80,7 @@ function BookDetail(props) {
               </span>
             </HStack>
           </HStack>
-          <BuyModal />
+          <BuyModal price={props.data.price} bookId={props.data.book_id} />
           <button className="w-full h-[49px] rounded-xl px-[44px] py-[10px] bg-white border-[1px] border-[#C8C8C8] text-[16px] font-medium text-[#000015]">
             مشاهده نمونه
           </button>

@@ -10,6 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import Stars from "../Stars";
 
 function AuthorBookItem(props) {
   return (
@@ -46,8 +47,8 @@ function AuthorBookItem(props) {
               >
                 {props.bookname}
               </Heading>
-              <div>ستاره</div>
-              <Stack rowGap="20px" flexGrow="1">
+              <Stars book_id={props.book_id}/>     
+                 <Stack rowGap="20px" flexGrow="1">
                 <span className="text-[16px] font-normal text-[#000015]">
                   زبان:&nbsp;{props.language}
                 </span>

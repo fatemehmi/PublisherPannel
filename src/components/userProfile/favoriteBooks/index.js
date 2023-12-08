@@ -32,7 +32,7 @@ function MyBookmarks() {
 
 	return (
 		<Sidebar pageName="bookmarks">
-			{!isLoading && <BooksList booksArray={data?.data} />}
+			{!isLoading && <BooksList type="favbooks" booksArray={data?.data} />}
 		</Sidebar>
 	);
 }
