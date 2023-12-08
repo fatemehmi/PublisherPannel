@@ -3,8 +3,8 @@ import axios from "axios";
 import useShowToast from "@/components/ui/useShowToast";
 
 const useGetBookReviews = (bookId) => {
-  const showToast = useShowToast();
   console.log("review")
+  const showToast = useShowToast();
   return useQuery({
     queryKey: ["book-review"],
     queryFn: () =>
@@ -14,6 +14,7 @@ const useGetBookReviews = (bookId) => {
         .catch((err) => {
           showToast(err.response.data.result.error_message);
         }),
+    enabled:!!bookId
   });
 };
 

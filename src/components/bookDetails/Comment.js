@@ -14,10 +14,9 @@ function Comment(props) {
   const[review,setReview]=useState(0)
   console.log(review)
   const [currentPage, setCurrentPage] = useState(1);
-  const{data,isSuccess,refetch}=useGetComments(props.bookId,currentPage)
-  // const{refetch:reviewRefetch}=useGetBookReviews(props.bookId)
-  const{mutate}=useSendComments()
-  const {mutate:sendReview}=useSendReview()
+  const{data,isSuccess}=useGetComments(props.bookId,currentPage)
+  const{mutate}=useSendComments(props.bookId,currentPage)
+  const {mutate:sendReview}=useSendReview(props.bookId)
 
 	let pageButtons;
 	if (isSuccess) {
@@ -33,24 +32,19 @@ function Comment(props) {
 
   const submitHandler=(e)=>{
     e.preventDefault()
-    // console.log(textareaRef.current.value)
     if(textareaRef.current.value.trim().length===0&&review===0){
       
     }
     else if(textareaRef.current.value.trim().length===0){
-      console.log(review)
       sendReview({id:props.bookId,value:review})
-      // reviewRefetch()
     }
     else if(review===0){
       mutate({id:props.bookId,value:textareaRef.current.value})
-      // refetch()
     }
     
     else{
       sendReview({id:props.bookId,value:review})
       mutate({id:props.bookId,value:textareaRef.current.value})
-      // refetch()
     }
   }
   if(isSuccess){
@@ -141,7 +135,6 @@ function Comment(props) {
                       borderRadius: "50%",
                     }}
                     onClick={() => {
-                      console.log("clicked");
                       setCurrentPage((prev) => prev + 1);
                     }}
                     disabled={currentPage === data.data.count}

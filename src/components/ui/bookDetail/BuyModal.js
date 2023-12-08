@@ -27,8 +27,8 @@ function BuyModal(props) {
   const[discountId,setDiscountId]=useState(null)
   const[percent,setDisountPercent]=useState(0)
   const{mutate:calculateDiscount}=useGetDiscount(setNewPrice,setDiscountId,setDisountPercent)
-  const{mutate}=useBuyBook()
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const{mutate}=useBuyBook(onClose)
 
   
   

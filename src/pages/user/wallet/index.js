@@ -250,6 +250,7 @@ const Wallet = () => {
 							width="198px"
 							padding="8px"
 							_hover={{ background: "#575DFB" }}
+							color="white"
 						>
 							خرید
 						</Button>

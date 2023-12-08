@@ -31,7 +31,7 @@ function MyBooks() {
 	}
 	return (
 		<Sidebar pageName="books">
-			<BooksList booksArray={data.data} />
+			<BooksList type="mybooks" booksArray={data.data} />
 		</Sidebar>
 	);
 }
