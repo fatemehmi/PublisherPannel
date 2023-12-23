@@ -4,9 +4,11 @@ import Stars from "./Stars";
 
 import useGetBookCategory from "@/react-query/hooks/useGetBookCategory";
 import Like from "../ui/bookDetail/Like";
+import Cookies from "js-cookie";
 
 function BookDetailCard(props) {
   const { data } = useGetBookCategory(props.data.book_id);
+  const token=Cookies.get("token")
 
   return (
     <CustomCardContainer minH="315px" pt="30px" pr="20px" pl="20px">
@@ -51,7 +53,7 @@ function BookDetailCard(props) {
               </span>
             </Stack>
           </Stack>
-          <Like book_id={props.data.book_id} />
+          {token&&<Like book_id={props.data.book_id} />}
         </Flex>
       </Flex>
     </CustomCardContainer>

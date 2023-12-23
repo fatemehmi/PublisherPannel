@@ -12,7 +12,7 @@ const useGetCategoryBooks = (category) => {
         .get(`http://localhost:7000/api/search/books?category=${category}`)
         .then((res) => res.data)
         .catch((err) => {
-          showToast(err.response.data.result.error_message);
+        
         }),
   });
 };

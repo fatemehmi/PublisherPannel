@@ -12,7 +12,7 @@ const useGetAuthorBooks = (authorName) => {
         .get(`http://localhost:7000/api/search/books?author=${authorName}`)
         .then((res) => res.data)
         .catch((err) => {
-          showToast(err.response.data.result.error_message);
+          
         }),
   });
 };

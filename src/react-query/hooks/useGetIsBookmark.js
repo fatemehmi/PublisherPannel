@@ -19,9 +19,6 @@ const useGetIsBookmark = (bookId, setLike) => {
         })
         .catch((err) => {
           console.log(err);
-          showToast(err.response.data.result.error_message);
-          if (err.response.status === 401 || err.response.status === 403) {
-          }
         }),
   });
 };
