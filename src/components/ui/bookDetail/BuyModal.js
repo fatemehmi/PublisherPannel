@@ -19,15 +19,19 @@ import useGetWalletInfo from '@/react-query/hooks/useGetWalletInfo';
 import useGetDiscount from '@/react-query/hooks/useGetDiscount';
 import { useRef } from 'react';
 import useBuyBook from '@/react-query/hooks/useBuyBook';
+import useShowToast from '../useShowToast';
+import Cookies from 'js-cookie';
 
 function BuyModal(props) {
+  const token = Cookies.get("token");
   const discountRef=useRef()
   const {data}=useGetWalletInfo()
   const[newPrice,setNewPrice]=useState(props.price)
   const[discountId,setDiscountId]=useState(null)
   const[percent,setDisountPercent]=useState(0)
-  const{mutate:calculateDiscount}=useGetDiscount(setNewPrice,setDiscountId,setDisountPercent)
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const showToast=useShowToast()
+  const{mutate:calculateDiscount}=useGetDiscount(setNewPrice,setDiscountId,setDisountPercent)
   const{mutate}=useBuyBook(onClose)
 
   
@@ -41,7 +45,7 @@ function BuyModal(props) {
   return (
     <>
     <button
-            onClick={onOpen}
+            onClick={token?onOpen:()=>showToast("وارد شوید.","info")}
             className="w-full h-[49px] bg-primary rounded-xl px-[44px] py-[10px] text-white text-[16px] font-medium"
           >
             خرید

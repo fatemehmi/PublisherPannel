@@ -1,5 +1,5 @@
 import React from 'react'
-import { HStack } from '@chakra-ui/react'
+import { HStack,Skeleton } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
 import useGetBookReviews from '@/react-query/hooks/useGetBookReviews'
 
@@ -25,6 +25,10 @@ function Stars(props) {
         <span className="text-[#C8C8C8] text-sm">{data.data[0].reviewaverage} از {data.data[0].reviewcount} نظر</span>
       </div>
     </HStack>
+    )
+  }else{
+    return(
+      <Skeleton startColor='gray.100' endColor='gray.200' height='15px' width="150px" />
     )
   }
 }
